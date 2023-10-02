@@ -3,8 +3,8 @@
     <div id="image">
       <div id="cover">
         <h1>登录</h1>
-        <input type="text" id="id" placeholder="师工号：" /><br />
-        <input type="password" id="pwd" placeholder="密码：" />
+        <input type="text" id="id" placeholder="师工号" /><br />
+        <input type="password" id="pwd" placeholder="密码" />
         <button id="loginbtn">登录</button>
         <router-link to="/register">
             <button id="registerbtn">注册</button>
@@ -105,6 +105,7 @@ button {
   border-width: 0px;
   background-color: #77b6e1;
   color: white;
+  transition: background-color ease-in-out 0.3s;
 }
 #registerbtn {
   left: 52%;
