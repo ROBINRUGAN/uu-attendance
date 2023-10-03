@@ -5,10 +5,13 @@
         <h1>登录</h1>
         <input type="text" id="id" placeholder="师工号" /><br />
         <input type="password" id="pwd" placeholder="密码" />
-        <button id="loginbtn">登录</button>
+        <router-link to="/">
+          <button id="loginbtn">登录</button>
+        </router-link>
+
         <router-link to="/register">
-            <button id="registerbtn">注册</button>
-          </router-link>
+          <button id="registerbtn">注册</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -44,6 +47,14 @@ export default {};
   position: absolute;
   justify-content: flex-end;
 }
+@keyframes move {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
 #cover {
   width: 50%;
   height: 100%;
@@ -56,6 +67,7 @@ export default {};
   align-items: center;
   position: absolute;
   border-radius: 20px;
+  animation: move 1s ease-in-out;
 }
 #cover h1 {
   position: absolute;

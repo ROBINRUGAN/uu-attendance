@@ -50,6 +50,14 @@ export default {};
   position: absolute;
   justify-content: flex-start;
 }
+@keyframes move {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
 #cover {
   width: 50%;
   height: 100%;
@@ -62,6 +70,7 @@ export default {};
   align-items: center;
   position: absolute;
   border-radius: 20px;
+  animation: move 1s ease-in-out;
 }
 #cover h1 {
   position: absolute;
@@ -86,6 +95,7 @@ input {
   border-radius: 15px;
   border-width: 1px;
 }
+
 #id {
   top: 24%;
 }

@@ -1,6 +1,7 @@
 import VueRouter from "vue-router";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Home from "../pages/Home";
 export default new VueRouter({
     routes: [{
             path: '/login',
@@ -12,7 +13,7 @@ export default new VueRouter({
         },
         {
             path: '/',
-            component: Login
+            component: Home
         },
         // {
         //     path: '/userCenter',
