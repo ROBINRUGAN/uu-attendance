@@ -22,5 +22,8 @@ export default {
   scroll-behavior: smooth;
   font-family: "微软雅黑";
 }
+.el-submenu__title{
+    padding: 0px!important;
+}
 </style>
 
