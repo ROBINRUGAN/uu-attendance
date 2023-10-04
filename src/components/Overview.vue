@@ -190,6 +190,8 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   background: #fffffff5;
+  box-shadow:  0 -3px 3px 0 #d4d2d2 inset;
+
 }
 .list-item:hover {
   background: #95daff;
