@@ -11,10 +11,10 @@
         <div
           class="list-status"
           :style="{
-            color: check.status === 1 ? '#33d290' : (check.status === -1 ? '#cd4a4a': 'black')
+            color: check.status === 1 ? '#33d290' : (check.status === -1 ? '#cd4a4a': '#1c86ee')
           }"
         >
-          {{check.status === 1 ? "已通过" : "未通过"}}
+          {{check.status === 1 ? "已通过" : (check.status === -1 ? "未通过" : "待审核")}}
         </div>
       </div>
     </div>

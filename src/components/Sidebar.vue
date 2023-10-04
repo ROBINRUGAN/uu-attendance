@@ -68,13 +68,14 @@
               </div>
             </el-menu-item>
           </router-link>
-
-          <el-menu-item index="3-2">
-            <div class="menu-item sub-item">
-              <img src="../assets/home/search-icon.png" alt="" />
-              请假审核
-            </div>
-          </el-menu-item>
+          <router-link to="/check-leave">
+            <el-menu-item index="3-2">
+              <div class="menu-item sub-item">
+                <img src="../assets/home/search-icon.png" alt="" />
+                请假审核
+              </div>
+            </el-menu-item>
+          </router-link>
         </el-menu-item-group>
       </el-submenu>
 

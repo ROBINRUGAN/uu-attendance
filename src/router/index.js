@@ -8,6 +8,7 @@ import Course from "../components/Course";
 import Student from "../components/Student";
 import Empower from "../components/Empower";
 import CheckAttendance from "../components/CheckAttendance";
+import CheckLeave from "../components/CheckLeave";
 export default new VueRouter({
     routes: [{
             path: '/login',
@@ -43,6 +44,10 @@ export default new VueRouter({
                 {
                     path: 'check-attendance',
                     component: CheckAttendance
+                },
+                {
+                    path: 'check-leave',
+                    component: CheckLeave
                 }
             ],
             redirect: '/home'
