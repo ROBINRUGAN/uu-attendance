@@ -6,6 +6,8 @@ import Overview from "../components/Overview";
 import HomePart from "../components/HomePart";
 import Course from "../components/Course";
 import Student from "../components/Student";
+import Empower from "../components/Empower";
+import CheckAttendance from "../components/CheckAttendance";
 export default new VueRouter({
     routes: [{
             path: '/login',
@@ -33,6 +35,14 @@ export default new VueRouter({
                 {
                     path: 'student',
                     component: Student
+                },
+                {
+                    path: 'empower',
+                    component: Empower
+                },
+                {
+                    path: 'check-attendance',
+                    component: CheckAttendance
                 }
             ],
             redirect: '/home'

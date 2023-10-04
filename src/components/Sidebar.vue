@@ -60,12 +60,15 @@
           </div>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="3-1">
-            <div class="menu-item sub-item">
-              <img src="../assets/home/search-menu.png" alt="" />
-              考勤审核
-            </div>
-          </el-menu-item>
+          <router-link to="check-attendance">
+            <el-menu-item index="3-1">
+              <div class="menu-item sub-item">
+                <img src="../assets/home/search-menu.png" alt="" />
+                考勤审核
+              </div>
+            </el-menu-item>
+          </router-link>
+
           <el-menu-item index="3-2">
             <div class="menu-item sub-item">
               <img src="../assets/home/search-icon.png" alt="" />
@@ -75,12 +78,14 @@
         </el-menu-item-group>
       </el-submenu>
 
-      <el-menu-item index="4">
-        <div class="menu-item">
-          <img src="../assets/home/auth-icon.png" alt="" />
-          督导权限指定
-        </div>
-      </el-menu-item>
+      <router-link to="/empower">
+        <el-menu-item index="4">
+          <div class="menu-item">
+            <img src="../assets/home/auth-icon.png" alt="" />
+            督导权限指定
+          </div>
+        </el-menu-item>
+      </router-link>
     </el-menu>
   </div>
 </template>
