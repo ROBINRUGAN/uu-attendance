@@ -5,10 +5,7 @@
       <h1 id="title">UU考勤</h1>
     </div>
 
-    <el-menu
-      default-active="1"
-      class="menu"
-    >
+    <el-menu default-active="1" class="menu">
       <router-link to="/home">
         <el-menu-item index="1">
           <div class="menu-item">
@@ -20,13 +17,12 @@
 
       <router-link to="/overview">
         <el-menu-item index="2">
-        <div class="menu-item">
-          <img src="../assets/home/all-icon.png" alt="" />
-          综合一览
-        </div>
-      </el-menu-item>
+          <div class="menu-item">
+            <img src="../assets/home/all-icon.png" alt="" />
+            综合一览
+          </div>
+        </el-menu-item>
       </router-link>
-
 
       <el-submenu index="3">
         <template slot="title">
@@ -36,18 +32,23 @@
           </div>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="3-1">
-            <div class="menu-item sub-item">
-              <img src="../assets/home/search-menu.png" alt="" />
-              课程查询
-            </div>
-          </el-menu-item>
-          <el-menu-item index="3-2">
-            <div class="menu-item sub-item">
-              <img src="../assets/home/search-icon.png" alt="" />
-              学生查询
-            </div>
-          </el-menu-item>
+          <router-link to="/course">
+            <el-menu-item index="3-1">
+              <div class="menu-item sub-item">
+                <img src="../assets/home/search-menu.png" alt="" />
+                课程查询
+              </div>
+            </el-menu-item>
+          </router-link>
+
+          <router-link to="/student">
+            <el-menu-item index="3-2">
+              <div class="menu-item sub-item">
+                <img src="../assets/home/search-icon.png" alt="" />
+                学生查询
+              </div>
+            </el-menu-item>
+          </router-link>
         </el-menu-item-group>
       </el-submenu>
 
@@ -62,13 +63,13 @@
           <el-menu-item index="3-1">
             <div class="menu-item sub-item">
               <img src="../assets/home/search-menu.png" alt="" />
-              课程查询
+              考勤审核
             </div>
           </el-menu-item>
           <el-menu-item index="3-2">
             <div class="menu-item sub-item">
               <img src="../assets/home/search-icon.png" alt="" />
-              学生查询
+              请假审核
             </div>
           </el-menu-item>
         </el-menu-item-group>
@@ -144,7 +145,7 @@ export default {};
   box-sizing: border-box;
   border-radius: 5px;
 }
-a{
+a {
   text-decoration: none;
   color: white;
 }
@@ -169,28 +170,29 @@ li {
   margin-right: 10px;
 }
 .el-menu {
-  background: transparent!important;
+  background: transparent !important;
 }
-.el-menu-item{
-  color: white!important;
-  background-color: #a6e0fe!important;
-  font-size: 18px!important;
+.el-menu-item {
+  color: white !important;
+  background-color: #a6e0fe !important;
+  font-size: 18px !important;
 }
 .el-menu-item.is-active {
-    color: #fff!important;
-    background-color: #a6e0fe!important;
+  color: #fff !important;
+  background-color: #a6e0fe !important;
 }
-.el-menu-item:focus, .el-menu-item:hover {
-    outline: 0;
-    background-color: #a6e0fe!important;
+.el-menu-item:focus,
+.el-menu-item:hover {
+  outline: 0;
+  background-color: #a6e0fe !important;
 }
 .sub-item[data-v-7d622f5c] {
-  background-color: #a6e0fe!important;
+  background-color: #a6e0fe !important;
 }
 .sub-item[data-v-7d622f5c]:hover {
-  background-color: #6fc5f1!important;
+  background-color: #6fc5f1 !important;
 }
 .sub-item[data-v-7d622f5c]:active {
-  background-color: #65bce7!important;
+  background-color: #65bce7 !important;
 }
 </style>

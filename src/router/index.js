@@ -4,6 +4,7 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import Overview from "../components/Overview";
 import HomePart from "../components/HomePart";
+import Course from "../components/Course";
 export default new VueRouter({
     routes: [{
             path: '/login',
@@ -17,13 +18,18 @@ export default new VueRouter({
             path: '/',
             component: Home,
             children: [{
-                path: 'overview',
-                component: Overview
-            },
-            {
-                path: 'home',
-                component: HomePart
-            }],
+                    path: 'overview',
+                    component: Overview
+                },
+                {
+                    path: 'home',
+                    component: HomePart
+                },
+                {
+                    path: 'course',
+                    component: Course
+                },
+            ],
             redirect: '/home'
 
         }
