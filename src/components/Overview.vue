@@ -28,7 +28,8 @@
         <span>{{ student.name }}</span>
       </div>
     </div>
-    <el-pagination id="page"
+    <el-pagination
+      id="page"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
@@ -193,7 +194,7 @@ export default {
 .list-item:hover {
   background: #95daff;
 }
-#page{
+#page {
   margin: auto;
   margin-top: -80px;
 }

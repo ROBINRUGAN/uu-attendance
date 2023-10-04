@@ -115,7 +115,7 @@ export default {};
   from {
     transform: translate(100%, 10%);
   }
-  to { 
+  to {
     transform: translate(0%, 0%);
   }
 }

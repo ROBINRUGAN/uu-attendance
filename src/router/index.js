@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Overview from "../components/Overview";
 import HomePart from "../components/HomePart";
 import Course from "../components/Course";
+import Student from "../components/Student";
 export default new VueRouter({
     routes: [{
             path: '/login',
@@ -29,6 +30,10 @@ export default new VueRouter({
                     path: 'course',
                     component: Course
                 },
+                {
+                    path: 'student',
+                    component: Student
+                }
             ],
             redirect: '/home'
 

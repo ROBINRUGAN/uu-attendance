@@ -12,43 +12,10 @@
         <option value="value1">高等数学</option>
         <option value="value2">高级语言程序设计</option>
       </select>
-      <select id="week">
-        <option value="value0">请选择周数</option>
-        <option value="value1">第1周</option>
-        <option value="value2">第2周</option>
-        <option value="value3">第3周</option>
-        <option value="value4">第4周</option>
-        <option value="value5">第5周</option>
-        <option value="value6">第6周</option>
-        <option value="value7">第7周</option>
-        <option value="value8">第8周</option>
-        <option value="value9">第9周</option>
-        <option value="value10">第10周</option>
-        <option value="value11">第11周</option>
-        <option value="value12">第12周</option>
-        <option value="value13">第13周</option>
-        <option value="value14">第14周</option>
-        <option value="value15">第15周</option>
-        <option value="value16">第16周</option>
-      </select>
-      <select id="day">
-        <option value="value0">请选择星期</option>
-        <option value="value1">星期一</option>
-        <option value="value2">星期二</option>
-        <option value="value3">星期三</option>
-        <option value="value4">星期四</option>
-        <option value="value5">星期五</option>
-        <option value="value6">星期六</option>
-        <option value="value7">星期日</option>
-      </select>
-      <select id="section">
-        <option value="value0">请选择节数</option>
-        <option value="value1">1-2节</option>
-        <option value="value2">3-4节</option>
-        <option value="value3">5-6节</option>
-        <option value="value4">7-8节</option>
-        <option value="value5">9-11节</option>
-      </select>
+      <div class="search">
+        学号：
+        <input type="text" id="number" />
+      </div>
 
       <button id="searchbtn">搜索</button>
     </div>
@@ -82,8 +49,8 @@
     </el-pagination>
   </div>
 </template>
-  
-  <script>
+    
+    <script>
 export default {
   name: "Overview",
   data() {
@@ -223,7 +190,7 @@ export default {
   },
 };
 </script>
-  
+    
 <style scoped>
 #overview {
   box-sizing: border-box;
