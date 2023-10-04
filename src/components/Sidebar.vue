@@ -8,24 +8,25 @@
     <el-menu
       default-active="1"
       class="menu"
-      @open="handleOpen"
-      @close="handleClose"
     >
-      <el-menu-item index="1">
-        <span>
+      <router-link to="/home">
+        <el-menu-item index="1">
           <div class="menu-item">
             <img src="../assets/home/home-icon.png" alt="" />
             首页
           </div>
-        </span>
-      </el-menu-item>
+        </el-menu-item>
+      </router-link>
 
-      <el-menu-item index="2">
+      <router-link to="/overview">
+        <el-menu-item index="2">
         <div class="menu-item">
           <img src="../assets/home/all-icon.png" alt="" />
           综合一览
         </div>
       </el-menu-item>
+      </router-link>
+
 
       <el-submenu index="3">
         <template slot="title">
@@ -139,11 +140,13 @@ export default {};
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 5px;
-  padding: 5px;
-  padding-left: 30px;
+  padding-left: 40px;
   box-sizing: border-box;
   border-radius: 5px;
+}
+a{
+  text-decoration: none;
+  color: white;
 }
 .sub-item {
   padding-left: 50px;
@@ -164,5 +167,30 @@ li {
   height: 30px;
   width: 30px;
   margin-right: 10px;
+}
+.el-menu {
+  background: transparent!important;
+}
+.el-menu-item{
+  color: white!important;
+  background-color: #a6e0fe!important;
+  font-size: 18px!important;
+}
+.el-menu-item.is-active {
+    color: #fff!important;
+    background-color: #a6e0fe!important;
+}
+.el-menu-item:focus, .el-menu-item:hover {
+    outline: 0;
+    background-color: #a6e0fe!important;
+}
+.sub-item[data-v-7d622f5c] {
+  background-color: #a6e0fe!important;
+}
+.sub-item[data-v-7d622f5c]:hover {
+  background-color: #6fc5f1!important;
+}
+.sub-item[data-v-7d622f5c]:active {
+  background-color: #65bce7!important;
 }
 </style>

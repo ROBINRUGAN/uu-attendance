@@ -1,7 +1,8 @@
 <template>
     <div id="home">
         <Sidebar id="sidebar"/>
-        <HomePart id="home-part"/>
+        <router-view></router-view>
+        <!-- <HomePart id="home-part"/> -->
     </div>
 </template>
 
@@ -29,7 +30,12 @@ export default {
         flex-direction: row;
     }
     #home-part {
-        z-index: -2;
         margin-left: -10px;
+    }
+    #overview {
+        margin-left: -10px;
+    }
+    #sidebar {
+        z-index: 2;
     }
 </style>
