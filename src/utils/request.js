@@ -19,8 +19,8 @@ service.interceptors.request.use(
         config.headers['Access-Control-Allow-Credentials'] = true;
         let token = window.localStorage.getItem("token")
         if (token) {
-            //我们headers里面的令牌取名叫token，后端也要对应
-            config.headers.token = token;
+            //我们headers里面的令牌取名叫Authorization
+            config.headers.Authorization = token;
         }
         return config;
     },

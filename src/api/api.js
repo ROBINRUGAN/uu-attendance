@@ -3,13 +3,30 @@ import {
 } from "@/utils/request";
 
 export function Login(data) {
-    console.log('我在api.js，用户名登录表单发送', data)
     return service.request({
         method: "post",
         url: `/user/login`,
         data
     })
 }
+export function CourseSearch(data) {
+    return service.request({
+        method: "get",
+        url: `/courseAttendances/courseAttendanceList?courseName=${data.courseName}&`+
+        `semester=${data.semester}&week=${data.week}&weekday=${data.weekday}&`+
+        `beginSection=${data.beginSection}&endSection=${data.endSection}&pageSize=${data.pageSize}&pageNo=${data.pageNo}`,
+    })
+}
+export function ExportCourseSearch(data) {
+    return service.request({
+        method: "get",
+        url: `/courseAttendances/export/courseAttendanceList?courseName=${data.courseName}&`+
+        `semester=${data.semester}&week=${data.week}&weekday=${data.weekday}&`+
+        `beginSection=${data.beginSection}&endSection=${data.endSection}`,
+        responseType: 'blob'
+    })
+}
+
 // export function LoginByTelephone(data) {
 //     console.log('我在api.js，手机号登录表单发送', data)
 //     return service.request({

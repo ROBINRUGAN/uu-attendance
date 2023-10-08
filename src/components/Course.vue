@@ -1,56 +1,78 @@
 <template>
   <div id="overview">
     <div id="search-box">
-      <select id="term">
-        <option value="value0">请选择学期</option>
-        <option value="value1">202201</option>
-        <option value="value2">202202</option>
-        <option value="value3">202301</option>
+      <select id="term" v-model="term">
+        <option value="0">请选择学期</option>
+        <option value="202201">202201</option>
+        <option value="202202">202202</option>
+        <option value="202301">202301</option>
       </select>
-      <select id="course">
-        <option value="value0">请选择课程</option>
-        <option value="value1">高等数学</option>
-        <option value="value2">高级语言程序设计</option>
+      <select id="course" v-model="course">
+        <option value="0">请选择课程</option>
+        <option value="高等数学">高等数学</option>
+        <option value="高级语言程序设计">高级语言程序设计</option>
+        <option value="算法与数据结构">算法与数据结构</option>
       </select>
-      <select id="week">
-        <option value="value0">请选择周数</option>
-        <option value="value1">第1周</option>
-        <option value="value2">第2周</option>
-        <option value="value3">第3周</option>
-        <option value="value4">第4周</option>
-        <option value="value5">第5周</option>
-        <option value="value6">第6周</option>
-        <option value="value7">第7周</option>
-        <option value="value8">第8周</option>
-        <option value="value9">第9周</option>
-        <option value="value10">第10周</option>
-        <option value="value11">第11周</option>
-        <option value="value12">第12周</option>
-        <option value="value13">第13周</option>
-        <option value="value14">第14周</option>
-        <option value="value15">第15周</option>
-        <option value="value16">第16周</option>
+      <select id="week" v-model="week">
+        <option value="0">请选择周数</option>
+        <option value="1">第1周</option>
+        <option value="2">第2周</option>
+        <option value="3">第3周</option>
+        <option value="4">第4周</option>
+        <option value="5">第5周</option>
+        <option value="6">第6周</option>
+        <option value="7">第7周</option>
+        <option value="8">第8周</option>
+        <option value="9">第9周</option>
+        <option value="10">第10周</option>
+        <option value="11">第11周</option>
+        <option value="12">第12周</option>
+        <option value="13">第13周</option>
+        <option value="14">第14周</option>
+        <option value="15">第15周</option>
+        <option value="16">第16周</option>
       </select>
-      <select id="day">
-        <option value="value0">请选择星期</option>
-        <option value="value1">星期一</option>
-        <option value="value2">星期二</option>
-        <option value="value3">星期三</option>
-        <option value="value4">星期四</option>
-        <option value="value5">星期五</option>
-        <option value="value6">星期六</option>
-        <option value="value7">星期日</option>
+      <select id="day" v-model="day">
+        <option value="0">请选择星期</option>
+        <option value="1">星期一</option>
+        <option value="2">星期二</option>
+        <option value="3">星期三</option>
+        <option value="4">星期四</option>
+        <option value="5">星期五</option>
+        <option value="6">星期六</option>
+        <option value="7">星期日</option>
       </select>
-      <select id="section">
-        <option value="value0">请选择节数</option>
-        <option value="value1">1-2节</option>
-        <option value="value2">3-4节</option>
-        <option value="value3">5-6节</option>
-        <option value="value4">7-8节</option>
-        <option value="value5">9-11节</option>
+      <select id="section" v-model="from">
+        <option value="0">请选择节数</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+      </select>
+      <select id="section" v-model="to">
+        <option value="0">请选择节数</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
       </select>
 
-      <button id="searchbtn">搜索</button>
+      <button id="searchbtn" @click="search">搜索</button>
+      <button id="exportbtn" @click="download">导出</button>
     </div>
 
     <div id="banner">
@@ -62,11 +84,11 @@
     </div>
     <div id="list">
       <div class="list-item" v-for="(student, i) in pagedOrders" :key="i">
-        <span>{{ student.id }}</span>
-        <span>{{ student.name }}</span>
-        <span>{{ student.pass }}</span>
-        <span>{{ student.unknown }}</span>
-        <span>{{ student.fail }}</span>
+        <span>{{ student.studentName }}</span>
+        <span>{{ student.studentNo }}</span>
+        <span>{{ student.signedCount }}</span>
+        <span>{{ student.nocheckCount }}</span>
+        <span>{{ student.absentCount }}</span>
       </div>
     </div>
     <el-pagination
@@ -84,129 +106,64 @@
 </template>
   
   <script>
+import { CourseSearch, ExportCourseSearch } from "@/api/api";
+import JSZip from "jszip";
 export default {
   name: "Overview",
   data() {
     return {
-      studentList: [
-        {
-          id: "161561561",
-          name: "网上搜1",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜2",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜3",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜4",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜5",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜6",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜7",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜8",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜9",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜10",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜11",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜12",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜13",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜14",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜15",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜16",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-        },
-      ],
+      term: "0",
+      course: "0",
+      week: "0",
+      day: "0",
+      from: "0",
+      to: "0",
+      studentList: [],
       currentPage: 1,
-      pageSize: 5,
+      pageSize: 2,
     };
   },
   methods: {
+    download() {
+      ExportCourseSearch({
+        semester: this.term,
+        courseName: this.course,
+        week: this.week,
+        weekday: this.day,
+        beginSection: this.from,
+        endSection: this.to,
+      }).then((res) => {
+        const blob = new Blob([res], { type: "application/zip" });
+        // 创建URL以供下载
+        const blobUrl = window.URL.createObjectURL(blob);
+        // 创建一个下载链接
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = "课程查询结果.xlsx"; // 设置文件名
+        // 触发点击事件以下载文件
+        link.click();
+      });
+    },
+    search() {
+      let searchData = {
+        semester: this.term,
+        courseName: this.course,
+        week: this.week,
+        weekday: this.day,
+        beginSection: this.from,
+        endSection: this.to,
+        pageNo: 1,
+        pageSize: 10000,
+      };
+      CourseSearch(searchData).then((res) => {
+        if (res.code == 1) {
+          this.studentList = res.data.rows;
+          this.$message.success("查询成功");
+        } else {
+          this.$message.error(res.msg);
+        }
+      });
+    },
     handleSizeChange(val) {
       this.pageSize = val;
     },
@@ -255,7 +212,7 @@ export default {
   text-align: center;
 }
 #course {
-  width: 18%;
+  width: 15%;
   height: 40px;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -266,7 +223,7 @@ export default {
   text-align: center;
 }
 #week {
-  width: 10%;
+  width: 8%;
   height: 40px;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -277,7 +234,7 @@ export default {
   text-align: center;
 }
 #day {
-  width: 10%;
+  width: 8%;
   height: 40px;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -288,7 +245,7 @@ export default {
   text-align: center;
 }
 #section {
-  width: 10%;
+  width: 8%;
   height: 40px;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -332,6 +289,25 @@ export default {
 #searchbtn:active {
   background: #1c86ee;
 }
+#exportbtn {
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  border: 0px;
+  margin-top: 50px;
+  margin-left: 20px;
+  opacity: 0.74;
+  font-size: 15px;
+  font-weight: bold;
+  background: #229fe0;
+}
+#exportbtn:hover {
+  background: #1e90ff;
+}
+#exportbtn:active {
+  background: #1c86ee;
+}
+
 #banner {
   box-sizing: border-box;
   position: absolute;
@@ -383,7 +359,7 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   background: #fffffff5;
-  box-shadow:  0 -3px 3px 0 #d4d2d2 inset;
+  box-shadow: 0 -3px 3px 0 #d4d2d2 inset;
 }
 .list-item:hover {
   background: #95daff;
