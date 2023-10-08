@@ -12,7 +12,7 @@
     </div>
     <div id="hello">薛林翌老师您好：</div>
     <div id="cloud1">
-      <div class="func-title" id="title1">综合<br />一览</div>
+      <div class="func-title" id="title1">考勤<br />查询</div>
       <div class="func-content" id="content1">
         可进行课程时间查询， 以及查询学生名单
       </div>

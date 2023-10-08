@@ -15,16 +15,7 @@
         </el-menu-item>
       </router-link>
 
-      <router-link to="/overview">
-        <el-menu-item index="2">
-          <div class="menu-item">
-            <img src="../assets/home/all-icon.png" alt="" />
-            综合一览
-          </div>
-        </el-menu-item>
-      </router-link>
-
-      <el-submenu index="3">
+      <el-submenu index="2">
         <template slot="title">
           <div class="menu-item">
             <img src="../assets/home/search-menu.png" alt="" />
@@ -33,7 +24,7 @@
         </template>
         <el-menu-item-group>
           <router-link to="/course">
-            <el-menu-item index="3-1">
+            <el-menu-item index="2-1">
               <div class="menu-item sub-item">
                 <img src="../assets/home/search-menu.png" alt="" />
                 课程查询
@@ -42,7 +33,7 @@
           </router-link>
 
           <router-link to="/student">
-            <el-menu-item index="3-2">
+            <el-menu-item index="2-2">
               <div class="menu-item sub-item">
                 <img src="../assets/home/search-icon.png" alt="" />
                 学生查询
@@ -52,7 +43,7 @@
         </el-menu-item-group>
       </el-submenu>
 
-      <el-submenu index="4">
+      <el-submenu index="3">
         <template slot="title">
           <div class="menu-item">
             <img src="../assets/home/pass-icon.png" alt="" />
