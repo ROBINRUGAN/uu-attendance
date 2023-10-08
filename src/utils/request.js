@@ -20,9 +20,7 @@ service.interceptors.request.use(
         let token = window.localStorage.getItem("token")
         if (token) {
             //我们headers里面的令牌取名叫token，后端也要对应
-            config.headers.token = token
-            //一个补救办法，但是不太好，等待lrd修改后端接口
-            config.headers.Authorization = token;
+            config.headers.token = token;
         }
         return config;
     },
@@ -34,8 +32,6 @@ service.interceptors.request.use(
 //添加响应拦截器
 service.interceptors.response.use(
     function (response) {
-        console.log("调试中：")
-        console.log(response)
         //使用响应数据返回响应；
         const data = response;
         // 如果data有东西，就返回data.data，如果没有就返回response

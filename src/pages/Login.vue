@@ -32,15 +32,22 @@ export default {
       };
       Login(loginData).then(
         (res) => {
-          alert(res.msg);
           if (res.code == 1) {
-            localStorage.setItem("token", res.data.token);
-            this.$router.push("/home");
+            if (res.data.identity == 3) {
+              localStorage.setItem("token", res.data.token);
+              localStorage.setItem("name", res.data.name);
+              alert("登录成功！");
+              this.$router.push("/home");
+            } else {
+              alert("请使用教师账号登录！");
+            }
           } else {
+            alert(res.msg);
             console.log(res);
           }
         },
         (err) => {
+          alert(res.msg);
           console.log(err);
         }
       );

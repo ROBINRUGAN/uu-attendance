@@ -3,14 +3,14 @@
     <div id="banner">
       <div id="info-time">
         <div class="title">当前时间：</div>
-        <div class="content">2023年10月03日</div>
+        <div class="content">{{date}}</div>
       </div>
       <div id="info-sche">
         <div class="title">当前学期：</div>
         <div class="content">2023年-02学期</div>
       </div>
     </div>
-    <div id="hello">薛林翌老师您好：</div>
+    <div id="hello">{{ name }}老师您好：</div>
     <div id="cloud1">
       <div class="func-title" id="title1">考勤<br />查询</div>
       <div class="func-content" id="content1">
@@ -43,7 +43,25 @@
 </template>
 
 <script>
-export default {};
+import router from '@/router';
+export default {
+  data() {
+    return {};
+  },
+  methods: {},
+  computed: {
+    name: () => {
+      return localStorage.getItem('name');
+    },
+    date: () => {
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      return `${year}年${month}月${day}日`;
+    },
+  },
+};
 </script>
 
 <style scoped>
