@@ -3,11 +3,9 @@
     <div id="image">
       <div id="cover">
         <h1>登录</h1>
-        <input type="text" id="id" placeholder="师工号" /><br />
-        <input type="password" id="pwd" placeholder="密码" />
-        <router-link to="/">
-          <button id="loginbtn">登录</button>
-        </router-link>
+        <input type="text" id="id" v-model="no" placeholder="师工号" /><br />
+        <input type="password" id="pwd" v-model="password" placeholder="密码" />
+        <button id="loginbtn" @click="login">登录</button>
 
         <router-link to="/register">
           <button id="registerbtn">注册</button>
@@ -18,7 +16,37 @@
 </template>
 
 <script>
-export default {};
+import { Login } from "@/api/api";
+export default {
+  data() {
+    return {
+      no: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      let loginData = {
+        no: this.no,
+        password: this.password,
+      };
+      Login(loginData).then(
+        (res) => {
+          alert(res.msg);
+          if (res.code == 1) {
+            localStorage.setItem("token", res.data.token);
+            this.$router.push("/home");
+          } else {
+            console.log(res);
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    },
+  },
+};
 </script>
 
 <style scoped>

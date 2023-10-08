@@ -79,6 +79,10 @@
         </el-menu-item>
       </router-link>
     </el-menu>
+    <div id="logout">
+      <img src="../assets/home/search-icon.png" alt="">
+      <span>退出登录</span>
+    </div>
   </div>
 </template>
 
@@ -191,5 +195,26 @@ li {
 }
 .sub-item[data-v-7d622f5c]:active {
   background-color: #65bce7 !important;
+}
+#logout{
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-weight: 550;
+  cursor: pointer;
+}
+#logout img{
+  height: 40px;
+  width: 40px;
+  margin-right: 20px;
+  margin-left: -30px;
+}
+#logout:hover{
+  background: #6fc5f1;
 }
 </style>
