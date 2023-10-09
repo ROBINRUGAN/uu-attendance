@@ -10,6 +10,7 @@ import Empower from "../components/Empower";
 import CheckAttendance from "../components/CheckAttendance";
 import CheckLeave from "../components/CheckLeave";
 export default new VueRouter({
+    mode: 'history',
     routes: [{
             path: '/login',
             component: Login
