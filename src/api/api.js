@@ -85,6 +85,24 @@ export function AttendanceCheck(data) {
         url: `/attendanceAppeals/${data.id}?status=${data.status}`,
     })
 }
+export function LeaveAppeal(data) {
+    return service.request({
+        method: "get",
+        url: `/leaves/teaLeaveSummary?pageNo=${data.pageNo}&pageSize=${data.pageSize}`,
+    })
+}
+export function LeaveDetail(data) {
+    return service.request({
+        method: "get",
+        url: `/leaves/${data.id}/leaveDetail`,
+    })
+}
+export function LeaveCheck(data) {
+    return service.request({
+        method: "put",
+        url: `/leaves/${data.id}?status=${data.status}`,
+    })
+}
 
 // export function LoginByTelephone(data) {
 //     console.log('我在api.js，手机号登录表单发送', data)
