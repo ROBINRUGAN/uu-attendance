@@ -1,5 +1,5 @@
 <template>
-  <div id="course">
+  <div id="overview">
     <div id="search-box">
       <select id="term" v-model="term" @change="fetchCourses">
         <option value="0">请选择学期</option>
@@ -199,7 +199,7 @@ export default {
 </script>
   
 <style scoped>
-#course {
+#overview {
   box-sizing: border-box;
   position: relative;
   width: 85.4%;

@@ -29,9 +29,9 @@
     <div id="banner">
       <span id="span-id">学生学号</span>
       <span id="span-name">姓名</span>
-      <span id="span-pass">周数</span>
-      <span id="span-unknown">星期</span>
-      <span id="span-fail">签到情况</span>
+      <span id="span-week">周数</span>
+      <span id="span-day">星期</span>
+      <span id="span-status">签到情况</span>
     </div>
     <div id="list">
       <div class="list-item" v-for="(student, i) in pagedOrders" :key="i">
@@ -385,13 +385,13 @@ export default {
 #span-name {
   margin: 0 0 0 60px;
 }
-#span-pass {
+#span-week {
   margin: 0 0 0 50px;
 }
-#span-unknown {
+#span-day {
   margin: 0 15px 0 50px;
 }
-#span-fail {
+#span-status {
   margin: 0 30px 0 15px;
 }
 #list {

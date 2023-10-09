@@ -3,47 +3,56 @@
     <div id="banner">
       <div id="info-time">
         <div class="title">当前时间：</div>
-        <div class="content">{{date}}</div>
+        <div class="content">{{ date }}</div>
       </div>
       <div id="info-sche">
         <div class="title">当前学期：</div>
-        <div class="content">2023年-02学期</div>
+        <div class="content">2023年-01学期</div>
       </div>
     </div>
     <div id="hello">{{ name }}老师您好：</div>
-    <div id="cloud1">
-      <div class="func-title" id="title1">考勤<br />查询</div>
-      <div class="func-content" id="content1">
-        可进行课程时间查询， 以及查询学生名单
+    <router-link to="/course">
+      <div id="cloud1">
+        <div class="func-title" id="title1">课程<br />查询</div>
+        <div class="func-content" id="content1">
+          通过搜索，查询某课程某学生的考勤情况
+        </div>
       </div>
-    </div>
+    </router-link>
+
+    <router-link to="/student">
     <div id="cloud2">
-      <div class="func-title" id="title2">课程<br />查询</div>
+      <div class="func-title" id="title2">学生<br />查询</div>
       <div class="func-content" id="content2">
         可通过搜索，了解某节课学生的考勤情况
       </div>
     </div>
+    </router-link>
+
+    <router-link to="/check-attendance">
     <div id="cloud3">
-      <div class="func-title" id="title3">学生<br />查询</div>
-      <div class="func-content" id="content3">
-        通过搜索，查询某课程某学生的考勤情况
-      </div>
+      <div class="func-title" id="title3">考勤<br />申诉</div>
+      <div class="func-content" id="content3">对学生的考勤申诉进行审核</div>
     </div>
+  </router-link>
+
+  <router-link to="/check-leave">
     <div id="cloud4">
       <div class="func-title" id="title4">审核<br />请假</div>
-      <div class="func-content" id="content4">
-        对学生的考勤申诉与请假申诉进行审核
-      </div>
+      <div class="func-content" id="content4">对学生的请假申诉进行审核</div>
     </div>
+  </router-link>
+
+    <router-link to="/empower">
     <div id="cloud5">
       <div class="func-title" id="title5">督导<br />指定</div>
       <div class="func-content" id="content5">选择、删除、查询本课程的督导</div>
     </div>
+  </router-link>
   </div>
 </template>
 
 <script>
-import router from '@/router';
 export default {
   data() {
     return {};
@@ -51,7 +60,7 @@ export default {
   methods: {},
   computed: {
     name: () => {
-      return localStorage.getItem('name');
+      return localStorage.getItem("name");
     },
     date: () => {
       let date = new Date();
@@ -232,6 +241,10 @@ export default {
   width: 190px;
   top: 40%;
   left: 12%;
+  color: #000;
+}
+#content1:hover{
+  color: rgb(255, 86, 86);
 }
 #title2 {
   top: 23%;
@@ -242,16 +255,25 @@ export default {
   width: 190px;
   top: 33%;
   left: 14%;
+  color: #000;
+}
+#content2:hover{
+  color: rgb(255, 86, 86);
 }
 #title3 {
   top: 38%;
   left: 60%;
   letter-spacing: 2px;
+  
 }
 #content3 {
   width: 190px;
   top: 26%;
   left: 14%;
+  color: #000;
+}
+#content3:hover{
+  color: rgb(255, 86, 86);
 }
 #title4 {
   top: 45%;
@@ -262,6 +284,10 @@ export default {
   width: 190px;
   top: 21%;
   left: 14%;
+  color: #000;
+}
+#content4:hover{
+  color: rgb(255, 86, 86);
 }
 #title5 {
   top: 35%;
@@ -272,5 +298,9 @@ export default {
   width: 190px;
   top: 21%;
   left: 30%;
+  color: #000;
+}
+#content5:hover{
+  color: rgb(255, 86, 86);
 }
 </style>
