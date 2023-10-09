@@ -109,7 +109,6 @@
   
   <script>
 import { CourseSearch, ExportCourseSearch } from "@/api/api";
-import JSZip from "jszip";
 export default {
   name: "Overview",
   data() {
