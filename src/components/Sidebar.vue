@@ -95,6 +95,8 @@ export default {
       Logout().then(
         (res) => {
           this.$message.success(res.msg);
+          localStorage.removeItem("token");
+          localStorage.removeItem("name");
           this.$router.push("/login");
         },
         (err) => {
