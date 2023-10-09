@@ -36,18 +36,18 @@ export default {
             if (res.data.identity == 3) {
               localStorage.setItem("token", res.data.token);
               localStorage.setItem("name", res.data.name);
-              alert("登录成功！");
+              this.$message.success("登录成功！");
               this.$router.push("/home");
             } else {
-              alert("请使用教师账号登录！");
+              this.$message.error("请使用教师账号登录！");
             }
           } else {
-            alert(res.msg);
+            this.$message.error(res.msg);
             console.log(res);
           }
         },
         (err) => {
-          alert(res.msg);
+          this.$message.error(res.msg);
           console.log(err);
         }
       );
