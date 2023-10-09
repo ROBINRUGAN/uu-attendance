@@ -9,6 +9,19 @@ export function Login(data) {
         data
     })
 }
+export function Register(data) {
+    return service.request({
+        method: "post",
+        url: `/user/email/register`,
+        data
+    })
+}
+export function GetCode(data) {
+    return service.request({
+        method: "get",
+        url: `/user/email/verificationCode?email=${data.email}`
+    })
+}
 export function Logout() {
     return service.request({
         method: "post",

@@ -3,25 +3,96 @@
     <div id="image">
       <div id="cover">
         <h1>注册</h1>
-        <input type="text" id="id" placeholder="师工号" /><br />
-        <input type="password" id="pwd" placeholder="密码" /><br />
-        <input type="password" id="repwd" placeholder="确认密码" /><br />
-        <input type="text" id="email" placeholder="邮箱" /><br />
+        <input type="text" id="id" placeholder="师工号" v-model="id" /><br />
+        <input
+          type="password"
+          id="pwd"
+          placeholder="密码"
+          v-model="password"
+        /><br />
+        <input
+          type="password"
+          id="repwd"
+          placeholder="确认密码"
+          v-model="rePassword"
+        /><br />
+        <input
+          type="text"
+          id="email"
+          placeholder="邮箱"
+          v-model="email"
+        /><br />
         <div id="codeform">
-          <input type="text" id="code" placeholder="验证码" />
-          <button id="getcode">获取验证码</button>
+          <input type="text" id="code" placeholder="验证码" v-model="code" />
+          <button id="getcode" @click="getCode">获取验证码</button>
         </div>
         <router-link to="/login">
           <button id="loginbtn">登录</button>
         </router-link>
-        <button id="registerbtn">注册</button>
+        <button id="registerbtn" @click="register">注册</button>
       </div>
     </div>
   </div>
 </template>
   
   <script>
-export default {};
+import { GetCode, Register } from "@/api/api";
+export default {
+  data() {
+    return {
+      id: "",
+      password: "",
+      rePassword: "",
+      email: "",
+      code: "",
+    };
+  },
+  methods: {
+    getCode() {
+      if (this.email == "") {
+        this.$message.error("请输入邮箱");
+      } else {
+        GetCode({ email: this.email }).then((res) => {
+          if (res.code == 1) {
+            this.$message.success("验证码已发送，请注意查收");
+          } else {
+            this.$message.error(res.msg);
+          }
+        });
+      }
+    },
+    register() {
+      if (this.id == "") {
+        this.$message.error("请输入师工号");
+      } else if (this.password == "") {
+        this.$message.error("请输入密码");
+      } else if (this.rePassword == "") {
+        this.$message.error("请确认密码");
+      } else if(this.password != this.rePassword){
+        this.$message.error("两次密码不一致，请重新输入");
+      }
+       else if (this.email == "") {
+        this.$message.error("请输入邮箱");
+      } else if (this.code == "") {
+        this.$message.error("请输入验证码");
+      } else {
+        Register({
+          no: this.id,
+          password: this.password,
+          email: this.email,
+          verificationCode: this.code,
+        }).then((res) => {
+          if (res.code == 1) {
+            this.$message.success("操作成功，请等待管理员审核");
+            this.$router.push("/login");
+          } else {
+            this.$message.error(res.msg);
+          }
+        });
+      }
+    },
+  },
+};
 </script>
   
   <style scoped>
