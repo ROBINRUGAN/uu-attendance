@@ -9,9 +9,13 @@
       </select>
       <select id="course" v-model="course">
         <option value="0">请选择课程</option>
-        <option value="高等数学">高等数学</option>
-        <option value="高级语言程序设计">高级语言程序设计</option>
-        <option value="算法与数据结构">算法与数据结构</option>
+        <option
+          v-for="courseItem in courseList"
+          :value="courseItem"
+          :key="courseItem"
+        >
+          {{ courseItem }}
+        </option>
       </select>
       <select id="week" v-model="week">
         <option value="0">请选择周数</option>
@@ -143,6 +147,17 @@ export default {
         link.download = "课程查询结果.xlsx"; // 设置文件名
         // 触发点击事件以下载文件
         link.click();
+      });
+    },
+    fetchCourses() {
+      CourseList({ semester: this.term }).then((res) => {
+        if (res.data.length == 0) {
+          this.course = "0";
+          this.$message.error("该学期没有课程");
+
+        }
+        this.courseList = res.data;
+        console.log(this.courseList);
       });
     },
     search() {

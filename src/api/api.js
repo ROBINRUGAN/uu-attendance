@@ -28,6 +28,13 @@ export function Logout() {
         url: `/user/logout`,
     })
 }
+export function CourseList(data) {
+    return service.request({
+        method: "get",
+        url: `/courseDetails/coursedetailList?semester=${data.semester}`,
+    })
+}
+
 export function CourseSearch(data) {
     return service.request({
         method: "get",

@@ -1,7 +1,7 @@
 <template>
   <div id="overview">
     <div id="search-box">
-      <select id="term" v-model="term">
+      <select id="term" v-model="term" @change="fetchCourses">
         <option value="0">请选择学期</option>
         <option value="202201">202201</option>
         <option value="202202">202202</option>
@@ -9,13 +9,17 @@
       </select>
       <select id="course" v-model="course">
         <option value="0">请选择课程</option>
-        <option value="高等数学">高等数学</option>
-        <option value="高级语言程序设计">高级语言程序设计</option>
-        <option value="算法与数据结构">算法与数据结构</option>
+        <option
+          v-for="courseItem in courseList"
+          :value="courseItem"
+          :key="courseItem"
+        >
+          {{ courseItem }}
+        </option>
       </select>
       <div class="search">
         学号：
-        <input type="text" id="number" v-model="number"/>
+        <input type="text" id="number" v-model="number" />
       </div>
 
       <button id="searchbtn" @click="search">搜索</button>
@@ -53,7 +57,7 @@
 </template>
     
     <script>
-import { ExportStudentSearch, StudentSearch } from '@/api/api';
+import { CourseList, ExportStudentSearch, StudentSearch } from "@/api/api";
 export default {
   name: "Overview",
   data() {
@@ -61,6 +65,7 @@ export default {
       term: "0",
       course: "0",
       number: "",
+      courseList: [],
       studentList: [],
       currentPage: 1,
       pageSize: 10,
@@ -84,6 +89,16 @@ export default {
         this.studentList = res.data.rows;
         this.$message.success("查询成功");
         console.log(this.studentList);
+      });
+    },
+    fetchCourses() {
+      CourseList({ semester: this.term }).then((res) => {
+        if (res.data.length == 0) {
+          this.course = "0";
+          this.$message.error("该学期没有课程");
+        }
+        this.courseList = res.data;
+        console.log(this.courseList);
       });
     },
     download() {
@@ -221,7 +236,6 @@ export default {
       const endIndex = startIndex + this.pageSize;
       return this.studentList.slice(startIndex, endIndex);
     },
-
   },
 };
 </script>
@@ -403,8 +417,7 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   background: #fffffff5;
-  box-shadow:  0 -3px 3px 0 #d4d2d2 inset;
-
+  box-shadow: 0 -3px 3px 0 #d4d2d2 inset;
 }
 .list-item:hover {
   background: #95daff;
