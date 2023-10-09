@@ -81,6 +81,7 @@
       <span id="span-pass">已签到次数</span>
       <span id="span-unknown">未签到次数</span>
       <span id="span-fail">已缺勤次数</span>
+      <span id="span-leave">已请假次数</span>
     </div>
     <div id="list">
       <div class="list-item" v-for="(student, i) in pagedOrders" :key="i">
@@ -89,6 +90,7 @@
         <span>{{ student.signedCount }}</span>
         <span>{{ student.nocheckCount }}</span>
         <span>{{ student.absentCount }}</span>
+        <span>{{ student.leaveCount }}</span>
       </div>
     </div>
     <el-pagination
@@ -334,6 +336,9 @@ export default {
   margin: 0 0px;
 }
 #span-fail {
+  margin: 0 0 0 0px;
+}
+#span-leave {
   margin: 0 30px 0 0px;
 }
 #list {

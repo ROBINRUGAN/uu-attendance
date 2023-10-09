@@ -47,7 +47,7 @@ export default {
           }
         },
         (err) => {
-          this.$message.error(res.msg);
+          this.$message.error(err.msg);
           console.log(err);
         }
       );

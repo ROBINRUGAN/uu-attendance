@@ -9,6 +9,12 @@ export function Login(data) {
         data
     })
 }
+export function Logout() {
+    return service.request({
+        method: "post",
+        url: `/user/logout`,
+    })
+}
 export function CourseSearch(data) {
     return service.request({
         method: "get",
