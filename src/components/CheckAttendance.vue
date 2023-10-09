@@ -7,7 +7,7 @@
         class="list-item"
         v-for="(check, i) in pagedOrders"
         :key="i"
-        @click="dialogTableVisible = true"
+        @click="onCheckItem(check.id, i)"
       >
         <div class="list-brief">
           <div>课程：{{ check.courseName }}</div>
@@ -17,17 +17,17 @@
           class="list-status"
           :style="{
             color:
-              check.status === 1
+              check.status === '1'
                 ? '#33d290'
-                : check.status === -1
+                : check.status === '2'
                 ? '#cd4a4a'
                 : '#1c86ee',
           }"
         >
           {{
-            check.status === 1
+            check.status === "1"
               ? "已通过"
-              : check.status === -1
+              : check.status === "2"
               ? "未通过"
               : "待审核"
           }}
@@ -48,14 +48,12 @@
 
     <el-dialog title="申诉详情" :visible.sync="dialogTableVisible">
       <div id="stu-info">
-        <div id="name">姓名：王晓明</div>
-        <div id="id">学号：222200000</div>
+        <div id="name">姓名：{{ name }}</div>
+        <div id="id">学号：{{ no }}</div>
       </div>
-      <div id="time">时间：2023年10月03日 8：00-10：00</div>
-      <div id="course">课程：计算机组成原理</div>
-      <div id="excuse">
-        理由：课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。
-      </div>
+      <div id="time">时间：{{ time }}</div>
+      <div id="course">课程：{{ course }}</div>
+      <div id="excuse">理由：{{ excuse }}</div>
       <div id="imgmsg">图片：</div>
       <div id="img">
         <img
@@ -66,15 +64,15 @@
         />
       </div>
       <div id="footer">
-        <button id="passbtn">同意</button>
-        <button id="failbtn">不同意</button>
+        <button id="passbtn" @click="passFunc">同意</button>
+        <button id="failbtn" @click="failFunc">不同意</button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { AttendanceAppeal } from '@/api/api';
+import { AttendanceAppeal, AttendanceCheck, AttendanceDetail } from "@/api/api";
 
 export default {
   data() {
@@ -83,6 +81,13 @@ export default {
       checkList: [],
       currentPage: 1,
       pageSize: 5,
+      name: "",
+      no: "",
+      time: "",
+      course: "",
+      excuse: "",
+      id: "",
+      i: "",
     };
   },
   mounted() {
@@ -99,6 +104,63 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val;
+    },
+    onCheckItem(id, i) {
+      this.id = id;
+      this.i = i;
+      this.dialogTableVisible = true;
+      AttendanceDetail({
+        id: id,
+      }).then((res) => {
+        console.log(res.data);
+        this.name = res.data.studentName;
+        this.no = res.data.studentNo;
+        this.time = res.data.beginTime;
+        this.course = res.data.courseName;
+        this.excuse = res.data.reason;
+      });
+    },
+    passFunc() {
+      AttendanceCheck({
+        id: this.id,
+        status: "1",
+      }).then((res) => {
+        console.log(res);
+        if (res.code == 1) {
+          this.checkList[this.i].status = "1";
+            this.dialogTableVisible = false;
+          this.$message({
+            message: "已同意",
+            type: "success",
+          });
+        } else {
+          this.$message({
+            message: "请联系管理员",
+            type: "error",
+          });
+        }
+      });
+    },
+    failFunc() {
+      AttendanceCheck({
+        id: this.id,
+        status: "2",
+      }).then((res) => {
+        console.log(res);
+        if (res.code == 1) {
+          this.checkList[this.i].status = "2";
+          this.dialogTableVisible = false;
+          this.$message({
+            message: "已拒绝",
+            type: "warning",
+          });
+        } else {
+          this.$message({
+            message: "请联系管理员",
+            type: "error",
+          });
+        }
+      });
     },
   },
   computed: {

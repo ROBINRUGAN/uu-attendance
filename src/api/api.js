@@ -73,6 +73,19 @@ export function AttendanceAppeal(data) {
         url: `/attendanceAppeals/teaAttendanceAppealSummary?pageNo=${data.pageNo}&pageSize=${data.pageSize}`,
     })
 }
+export function AttendanceDetail(data) {
+    return service.request({
+        method: "get",
+        url: `/attendanceAppeals/${data.id}/attendanceAppealDetail`,
+    })
+}
+export function AttendanceCheck(data) {
+    return service.request({
+        method: "put",
+        url: `/attendanceAppeals/${data.id}?status=${data.status}`,
+    })
+}
+
 // export function LoginByTelephone(data) {
 //     console.log('我在api.js，手机号登录表单发送', data)
 //     return service.request({
