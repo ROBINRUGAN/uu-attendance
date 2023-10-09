@@ -1,19 +1,24 @@
 <template>
-  <div id="overview">
+  <div id="empower">
     <div id="search-box">
-      <select id="term">
-        <option value="value0">请选择学期</option>
-        <option value="value1">202201</option>
-        <option value="value2">202202</option>
-        <option value="value3">202301</option>
+      <select id="term" v-model="term" @change="fetchCourses">
+        <option value="0">请选择学期</option>
+        <option value="202201">202201</option>
+        <option value="202202">202202</option>
+        <option value="202301">202301</option>
       </select>
-      <select id="course">
-        <option value="value0">请选择课程</option>
-        <option value="value1">高等数学</option>
-        <option value="value2">高级语言程序设计</option>
+      <select id="course" v-model="course">
+        <option value="0">请选择课程</option>
+        <option
+          v-for="courseItem in courseList"
+          :value="courseItem"
+          :key="courseItem"
+        >
+          {{ courseItem }}
+        </option>
       </select>
 
-      <button id="searchbtn">搜索</button>
+      <button id="searchbtn" @click="search">搜索</button>
     </div>
 
     <div id="banner">
@@ -23,10 +28,22 @@
     </div>
     <div id="list">
       <div class="list-item" v-for="(student, i) in pagedOrders" :key="i">
-        <span>{{ student.id }}</span>
-        <span>{{ student.name }}</span>
-        <button v-if="student.status === '0'" id="setbtn">设置督导</button>
-        <button v-if="student.status !== '0'" id="unsetbtn">取消督导</button>
+        <span>{{ student.studentNo }}</span>
+        <span>{{ student.studentName }}</span>
+        <button
+          v-if="student.status === '0'"
+          id="setbtn"
+          @click="assign(student.stuUserId, i)"
+        >
+          设置督导
+        </button>
+        <button
+          v-if="student.status !== '0'"
+          id="unsetbtn"
+          @click="dismiss(student.stuUserId, i)"
+        >
+          取消督导
+        </button>
       </div>
     </div>
     <el-pagination
@@ -44,142 +61,18 @@
 </template>
     
     <script>
+import { Assign, CourseList, Dismiss, EmpowerList } from "@/api/api";
+
 export default {
-  name: "Overview",
+  name: "empower",
   data() {
     return {
-      studentList: [
-        {
-          id: "161561561",
-          name: "网上搜1",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜2",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "1",
-        },
-        {
-          id: "161561561",
-          name: "网上搜3",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜4",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "1",
-        },
-        {
-          id: "161561561",
-          name: "网上搜5",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜6",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜7",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜8",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜9",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜10",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜11",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜12",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜13",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜14",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜15",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-        {
-          id: "161561561",
-          name: "网上搜16",
-          pass: "5",
-          unknown: "2",
-          fail: "0",
-          status: "0",
-        },
-      ],
+      studentList: [],
       currentPage: 1,
       pageSize: 5,
+      courseList: [],
+      term: "0",
+      course: "0",
     };
   },
   methods: {
@@ -188,6 +81,64 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val;
+    },
+    fetchCourses() {
+      CourseList({ semester: this.term }).then((res) => {
+        if (res.data.length == 0) {
+          this.course = "0";
+          this.$message.error("该学期没有课程");
+        }
+        this.courseList = res.data;
+      });
+    },
+    search() {
+      EmpowerList({
+        semester: this.term,
+        courseName: this.course,
+      }).then((res) => {
+        if (res.code === 1) {
+          //TODO 接口缺少status状态，先姑且认为status为0的时候是未设置督导，status为1的时候是已设置督导
+          res.data.forEach((item) => {
+            item.status = "0"; // 设置初始的 status 属性值为空字符串
+          });
+
+          this.studentList = res.data;
+          this.$message.success("查询成功");
+          console.log(this.studentList);
+        } else {
+          this.$message.error("查询失败");
+        }
+      });
+    },
+    assign(id, i) {
+      Assign({
+        semester: this.term,
+        courseName: this.course,
+        userId: id,
+      }).then((res) => {
+        if (res.code === 1) {
+          this.studentList[(this.currentPage - 1) * this.pageSize + i].status =
+            "1";
+          this.$message.success("设置成功");
+        } else {
+          this.$message.error("设置失败");
+        }
+      });
+    },
+    dismiss(id, i) {
+      Dismiss({
+        semester: this.term,
+        courseName: this.course,
+        userId: id,
+      }).then((res) => {
+        if (res.code === 1) {
+          this.studentList[(this.currentPage - 1) * this.pageSize + i].status =
+            "0";
+          this.$message.success("取消成功");
+        } else {
+          this.$message.error("取消失败");
+        }
+      });
     },
   },
   computed: {
@@ -201,7 +152,7 @@ export default {
 </script>
     
   <style scoped>
-#overview {
+#empower {
   box-sizing: border-box;
   position: relative;
   width: 85.4%;
@@ -293,7 +244,7 @@ export default {
   text-align: center;
 }
 #searchbtn {
-    color: black;
+  color: black;
   width: 80px;
   height: 40px;
   border-radius: 10px;
@@ -363,8 +314,7 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   background: #fffffff5;
-  box-shadow:  0 -3px 3px 0 #d4d2d2 inset;
-
+  box-shadow: 0 -3px 3px 0 #d4d2d2 inset;
 }
 .list-item:hover {
   background: #95daff;

@@ -1,7 +1,7 @@
 <template>
-  <div id="overview">
+  <div id="course">
     <div id="search-box">
-      <select id="term" v-model="term">
+      <select id="term" v-model="term" @change="fetchCourses">
         <option value="0">请选择学期</option>
         <option value="202201">202201</option>
         <option value="202202">202202</option>
@@ -112,9 +112,9 @@
 </template>
   
   <script>
-import { CourseSearch, ExportCourseSearch } from "@/api/api";
+import { CourseList, CourseSearch, ExportCourseSearch } from "@/api/api";
 export default {
-  name: "Overview",
+  name: "course",
   data() {
     return {
       term: "0",
@@ -123,6 +123,7 @@ export default {
       day: "0",
       from: "0",
       to: "0",
+      courseList: [],
       studentList: [],
       currentPage: 1,
       pageSize: 2,
@@ -137,6 +138,7 @@ export default {
         weekday: this.day,
         beginSection: this.from,
         endSection: this.to,
+
       }).then((res) => {
         const blob = new Blob([res], { type: "application/zip" });
         // 创建URL以供下载
@@ -154,7 +156,6 @@ export default {
         if (res.data.length == 0) {
           this.course = "0";
           this.$message.error("该学期没有课程");
-
         }
         this.courseList = res.data;
         console.log(this.courseList);
@@ -198,7 +199,7 @@ export default {
 </script>
   
 <style scoped>
-#overview {
+#course {
   box-sizing: border-box;
   position: relative;
   width: 85.4%;

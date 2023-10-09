@@ -1,5 +1,5 @@
 <template>
-  <div id="overview">
+  <div id="student">
     <div id="search-box">
       <select id="term" v-model="term" @change="fetchCourses">
         <option value="0">请选择学期</option>
@@ -59,7 +59,7 @@
     <script>
 import { CourseList, ExportStudentSearch, StudentSearch } from "@/api/api";
 export default {
-  name: "Overview",
+  name: "student",
   data() {
     return {
       term: "0",
@@ -241,7 +241,7 @@ export default {
 </script>
     
 <style scoped>
-#overview {
+#student {
   box-sizing: border-box;
   position: relative;
   width: 85.4%;

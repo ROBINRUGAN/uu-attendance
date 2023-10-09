@@ -1,5 +1,5 @@
 <template>
-  <div id="check-attendance">
+  <div id="check-leave">
     <!-- <el-button type="text" @click="dialogTableVisible = true"
         >打开嵌套表格的 Dialog</el-button> -->
     <div id="list">
@@ -127,7 +127,7 @@ export default {
       }).then((res) => {
         console.log(res);
         if (res.code == 1) {
-          this.checkList[this.i].status = "1";
+          this.checkList[(this.currentPage-1)*this.pageSize+this.i].status = "1";
           this.dialogTableVisible = false;
           this.$message({
             message: "已同意",
@@ -148,7 +148,7 @@ export default {
       }).then((res) => {
         console.log(res);
         if (res.code == 1) {
-          this.checkList[this.i].status = "2";
+          this.checkList[(this.currentPage-1)*this.pageSize+this.i].status = "2";
           this.dialogTableVisible = false;
           this.$message({
             message: "已拒绝",
@@ -259,7 +259,7 @@ export default {
 #failbtn:active {
   background-color: #cf3c3c;
 }
-#check-attendance {
+#check-leave {
   box-sizing: border-box;
   position: relative;
   width: 85.4%;

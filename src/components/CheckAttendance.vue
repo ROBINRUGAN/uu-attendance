@@ -127,7 +127,7 @@ export default {
       }).then((res) => {
         console.log(res);
         if (res.code == 1) {
-          this.checkList[this.i].status = "1";
+          this.checkList[(this.currentPage-1)*this.pageSize+this.i].status = "1";
             this.dialogTableVisible = false;
           this.$message({
             message: "已同意",
@@ -148,7 +148,7 @@ export default {
       }).then((res) => {
         console.log(res);
         if (res.code == 1) {
-          this.checkList[this.i].status = "2";
+          this.checkList[(this.currentPage-1)*this.pageSize+this.i].status = "2";
           this.dialogTableVisible = false;
           this.$message({
             message: "已拒绝",
