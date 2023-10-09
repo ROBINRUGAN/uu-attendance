@@ -67,6 +67,12 @@ export function ExportStudentSearch(data) {
         responseType: 'blob'
     })
 }
+export function AttendanceAppeal(data) {
+    return service.request({
+        method: "get",
+        url: `/attendanceAppeals/teaAttendanceAppealSummary?pageNo=${data.pageNo}&pageSize=${data.pageSize}`,
+    })
+}
 // export function LoginByTelephone(data) {
 //     console.log('我在api.js，手机号登录表单发送', data)
 //     return service.request({

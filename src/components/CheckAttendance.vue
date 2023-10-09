@@ -3,18 +3,34 @@
     <!-- <el-button type="text" @click="dialogTableVisible = true"
       >打开嵌套表格的 Dialog</el-button> -->
     <div id="list">
-      <div class="list-item" v-for="(check, i) in pagedOrders" :key="i"  @click="dialogTableVisible = true">
+      <div
+        class="list-item"
+        v-for="(check, i) in pagedOrders"
+        :key="i"
+        @click="dialogTableVisible = true"
+      >
         <div class="list-brief">
-          <div>课程：{{ check.course }}</div>
-          <div>理由：{{ check.excuse }}</div>
+          <div>课程：{{ check.courseName }}</div>
+          <div>理由：{{ check.reason }}</div>
         </div>
         <div
           class="list-status"
           :style="{
-            color: check.status === 1 ? '#33d290' : (check.status === -1 ? '#cd4a4a': '#1c86ee')
+            color:
+              check.status === 1
+                ? '#33d290'
+                : check.status === -1
+                ? '#cd4a4a'
+                : '#1c86ee',
           }"
         >
-          {{check.status === 1 ? "已通过" : (check.status === -1 ? "未通过" : "待审核")}}
+          {{
+            check.status === 1
+              ? "已通过"
+              : check.status === -1
+              ? "未通过"
+              : "待审核"
+          }}
         </div>
       </div>
     </div>
@@ -58,111 +74,24 @@
 </template>
 
 <script>
+import { AttendanceAppeal } from '@/api/api';
+
 export default {
   data() {
     return {
       dialogTableVisible: false,
-      checkList: [
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-          status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 0,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: -1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-        {
-          course: "计算机组成原理",
-          excuse:
-            "课前去上厕所了，回来的时候督导员已经走了，但是还没上课，可查监控。",
-            status: 1,
-        },
-      ],
+      checkList: [],
       currentPage: 1,
       pageSize: 5,
     };
+  },
+  mounted() {
+    AttendanceAppeal({
+      pageSize: 10000,
+      pageNo: 1,
+    }).then((res) => {
+      this.checkList = res.data.rows;
+    });
   },
   methods: {
     handleSizeChange(val) {
@@ -301,7 +230,7 @@ export default {
   width: 100%;
   height: 100px;
   border-radius: 20px;
-  box-shadow:  0 -4px 4px 0 #d4d2d2 inset;
+  box-shadow: 0 -4px 4px 0 #d4d2d2 inset;
   display: flex;
   align-items: center;
   background: #fffffff5;
@@ -323,8 +252,8 @@ export default {
   margin: auto;
   margin-top: 0px;
 }
-.list-status{
-    font-size: 23px;
-    font-weight: 900;
+.list-status {
+  font-size: 23px;
+  font-weight: 900;
 }
 </style>
