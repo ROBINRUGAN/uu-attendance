@@ -94,8 +94,15 @@ export default {
       pageSize: 10000,
       pageNo: 1,
     }).then((res) => {
-      console.log(res.data.rows);
-      this.checkList = res.data.rows;
+      if (res.code === 1) {
+        if (res.data.rows.length == 0) {
+          this.$message.error("暂无申请信息！");
+        }
+        else this.checkList = res.data.rows;
+      } else {
+        alert("登录过期，请重新登录！");
+        this.$router.push("/login");
+      }
     });
   },
   methods: {
@@ -112,12 +119,16 @@ export default {
       LeaveDetail({
         id: id,
       }).then((res) => {
-        console.log(res);
-        this.name = res.data.studentName;
-        this.no = res.data.studentNo;
-        this.time = res.data.beginTime;
-        this.course = res.data.courseName;
-        this.excuse = res.data.reason;
+        if (res.code === 1) {
+          this.name = res.data.studentName;
+          this.no = res.data.studentNo;
+          this.time = res.data.beginTime;
+          this.course = res.data.courseName;
+          this.excuse = res.data.reason;
+        } else {
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
+        }
       });
     },
     passFunc() {
@@ -125,19 +136,18 @@ export default {
         id: this.id,
         status: "1",
       }).then((res) => {
-        console.log(res);
         if (res.code == 1) {
-          this.checkList[(this.currentPage-1)*this.pageSize+this.i].status = "1";
+          this.checkList[
+            (this.currentPage - 1) * this.pageSize + this.i
+          ].status = "1";
           this.dialogTableVisible = false;
           this.$message({
             message: "已同意",
             type: "success",
           });
         } else {
-          this.$message({
-            message: "请联系管理员",
-            type: "error",
-          });
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
         }
       });
     },
@@ -148,17 +158,17 @@ export default {
       }).then((res) => {
         console.log(res);
         if (res.code == 1) {
-          this.checkList[(this.currentPage-1)*this.pageSize+this.i].status = "2";
+          this.checkList[
+            (this.currentPage - 1) * this.pageSize + this.i
+          ].status = "2";
           this.dialogTableVisible = false;
           this.$message({
             message: "已拒绝",
             type: "warning",
           });
         } else {
-          this.$message({
-            message: "请联系管理员",
-            type: "error",
-          });
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
         }
       });
     },

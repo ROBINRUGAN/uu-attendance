@@ -86,9 +86,17 @@ export default {
         pageSize: 10000,
         pageNo: 1,
       }).then((res) => {
-        this.studentList = res.data.rows;
-        this.$message.success("查询成功");
-        console.log(this.studentList);
+        if (res.code === 1) {
+          if (res.data.rows.length == 0) {
+            this.$message.error("没有查询到数据");
+          } else {
+            this.studentList = res.data.rows;
+            this.$message.success("查询成功");
+          }
+        } else {
+          this.$message.error("登录过期，请重新登录");
+          this.$router.push("/login");
+        }
       });
     },
     fetchCourses() {
@@ -98,7 +106,6 @@ export default {
           this.$message.error("该学期没有课程");
         }
         this.courseList = res.data;
-        console.log(this.courseList);
       });
     },
     download() {

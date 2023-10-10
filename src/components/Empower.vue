@@ -31,14 +31,14 @@
         <span>{{ student.studentNo }}</span>
         <span>{{ student.studentName }}</span>
         <button
-          v-if="student.status === '0'"
+          v-if="student.studentType === 1"
           id="setbtn"
           @click="assign(student.stuUserId, i)"
         >
           设置督导
         </button>
         <button
-          v-if="student.status !== '0'"
+          v-if="student.studentType === 2"
           id="unsetbtn"
           @click="dismiss(student.stuUserId, i)"
         >
@@ -97,16 +97,15 @@ export default {
         courseName: this.course,
       }).then((res) => {
         if (res.code === 1) {
-          //TODO 接口缺少status状态，先姑且认为status为0的时候是未设置督导，status为1的时候是已设置督导
-          res.data.forEach((item) => {
-            item.status = "0"; // 设置初始的 status 属性值为空字符串
-          });
-
-          this.studentList = res.data;
-          this.$message.success("查询成功");
-          console.log(this.studentList);
+          if(res.data.length == 0) {
+            this.$message.error("没有查询到数据");
+          } else {
+            this.studentList = res.data;
+            this.$message.success("查询成功");
+          }
         } else {
-          this.$message.error("查询失败");
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
         }
       });
     },
@@ -117,11 +116,13 @@ export default {
         userId: id,
       }).then((res) => {
         if (res.code === 1) {
-          this.studentList[(this.currentPage - 1) * this.pageSize + i].status =
-            "1";
+          this.studentList[
+            (this.currentPage - 1) * this.pageSize + i
+          ].studentType = 2;
           this.$message.success("设置成功");
         } else {
-          this.$message.error("设置失败");
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
         }
       });
     },
@@ -132,11 +133,13 @@ export default {
         userId: id,
       }).then((res) => {
         if (res.code === 1) {
-          this.studentList[(this.currentPage - 1) * this.pageSize + i].status =
-            "0";
+          this.studentList[
+            (this.currentPage - 1) * this.pageSize + i
+          ].studentType = 1;
           this.$message.success("取消成功");
         } else {
-          this.$message.error("取消失败");
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
         }
       });
     },

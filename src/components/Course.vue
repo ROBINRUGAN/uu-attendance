@@ -19,22 +19,7 @@
       </select>
       <select id="week" v-model="week">
         <option value="0">请选择周数</option>
-        <option value="1">第1周</option>
-        <option value="2">第2周</option>
-        <option value="3">第3周</option>
-        <option value="4">第4周</option>
-        <option value="5">第5周</option>
-        <option value="6">第6周</option>
-        <option value="7">第7周</option>
-        <option value="8">第8周</option>
-        <option value="9">第9周</option>
-        <option value="10">第10周</option>
-        <option value="11">第11周</option>
-        <option value="12">第12周</option>
-        <option value="13">第13周</option>
-        <option value="14">第14周</option>
-        <option value="15">第15周</option>
-        <option value="16">第16周</option>
+        <option v-for="i in 16" :value="i" :key="i">第{{ i }}周</option>
       </select>
       <select id="day" v-model="day">
         <option value="0">请选择星期</option>
@@ -48,31 +33,11 @@
       </select>
       <select id="section" v-model="from">
         <option value="0">请选择节数</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
+        <option v-for="i in 11" :key="i" :value="i">第{{ i }}节</option>
       </select>
       <select id="section" v-model="to">
         <option value="0">请选择节数</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
+        <option v-for="i in 11" :key="i" :value="i">第{{ i }}节</option>
       </select>
 
       <button id="searchbtn" @click="search">搜索</button>
@@ -138,7 +103,6 @@ export default {
         weekday: this.day,
         beginSection: this.from,
         endSection: this.to,
-
       }).then((res) => {
         const blob = new Blob([res], { type: "application/zip" });
         // 创建URL以供下载
@@ -153,12 +117,15 @@ export default {
     },
     fetchCourses() {
       CourseList({ semester: this.term }).then((res) => {
-        if (res.data.length == 0) {
-          this.course = "0";
-          this.$message.error("该学期没有课程");
+        if (res.code === 1) {
+          if (res.data.length == 0) {
+            this.course = "0";
+            this.$message.error("该学期没有课程");
+          } else this.courseList = res.data;
+        } else {
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
         }
-        this.courseList = res.data;
-        console.log(this.courseList);
       });
     },
     search() {
@@ -174,10 +141,15 @@ export default {
       };
       CourseSearch(searchData).then((res) => {
         if (res.code == 1) {
-          this.studentList = res.data.rows;
-          this.$message.success("查询成功");
+          if (res.data.rows.length == 0) {
+            this.$message.error("没有查询到数据");
+          } else {
+            this.studentList = res.data.rows;
+            this.$message.success("查询成功");
+          }
         } else {
-          this.$message.error(res.msg);
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
         }
       });
     },

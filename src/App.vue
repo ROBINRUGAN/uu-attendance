@@ -26,5 +26,11 @@ export default {
 .el-menu-item-group__title {
   padding: 0px !important;
 }
+.el-submenu__title i {
+    color: #ffffff!important;
+}
+.el-submenu__icon-arrow {
+    font-size: 20px!important;
+}
 </style>
 

@@ -21,47 +21,56 @@
     </router-link>
 
     <router-link to="/student">
-    <div id="cloud2">
-      <div class="func-title" id="title2">学生<br />查询</div>
-      <div class="func-content" id="content2">
-        可通过搜索，了解某节课学生的考勤情况
+      <div id="cloud2">
+        <div class="func-title" id="title2">学生<br />查询</div>
+        <div class="func-content" id="content2">
+          可通过搜索，了解某节课学生的考勤情况
+        </div>
       </div>
-    </div>
     </router-link>
 
     <router-link to="/check-attendance">
-    <div id="cloud3">
-      <div class="func-title" id="title3">考勤<br />申诉</div>
-      <div class="func-content" id="content3">对学生的考勤申诉进行审核</div>
-    </div>
-  </router-link>
+      <div id="cloud3">
+        <div class="func-title" id="title3">考勤<br />申诉</div>
+        <div class="func-content" id="content3">对学生的考勤申诉进行审核</div>
+      </div>
+    </router-link>
 
-  <router-link to="/check-leave">
-    <div id="cloud4">
-      <div class="func-title" id="title4">审核<br />请假</div>
-      <div class="func-content" id="content4">对学生的请假申诉进行审核</div>
-    </div>
-  </router-link>
+    <router-link to="/check-leave">
+      <div id="cloud4">
+        <div class="func-title" id="title4">审核<br />请假</div>
+        <div class="func-content" id="content4">对学生的请假申诉进行审核</div>
+      </div>
+    </router-link>
 
     <router-link to="/empower">
-    <div id="cloud5">
-      <div class="func-title" id="title5">督导<br />指定</div>
-      <div class="func-content" id="content5">选择、删除、查询本课程的督导</div>
-    </div>
-  </router-link>
+      <div id="cloud5">
+        <div class="func-title" id="title5">督导<br />指定</div>
+        <div class="func-content" id="content5">
+          选择、删除、查询本课程的督导
+        </div>
+      </div>
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      name: "MEW",
+    };
+  },
+  mounted() {
+    if (localStorage.getItem("name") == null) {
+      alert("登录过期，请重新登录！");
+      this.$router.push("/login");
+    } else {
+      this.name = localStorage.getItem("name");
+    }
   },
   methods: {},
   computed: {
-    name: () => {
-      return localStorage.getItem("name");
-    },
     date: () => {
       let date = new Date();
       let year = date.getFullYear();
@@ -243,7 +252,7 @@ export default {
   left: 12%;
   color: #000;
 }
-#content1:hover{
+#content1:hover {
   color: rgb(255, 86, 86);
 }
 #title2 {
@@ -257,14 +266,13 @@ export default {
   left: 14%;
   color: #000;
 }
-#content2:hover{
+#content2:hover {
   color: rgb(255, 86, 86);
 }
 #title3 {
   top: 38%;
   left: 60%;
   letter-spacing: 2px;
-  
 }
 #content3 {
   width: 190px;
@@ -272,7 +280,7 @@ export default {
   left: 14%;
   color: #000;
 }
-#content3:hover{
+#content3:hover {
   color: rgb(255, 86, 86);
 }
 #title4 {
@@ -286,7 +294,7 @@ export default {
   left: 14%;
   color: #000;
 }
-#content4:hover{
+#content4:hover {
   color: rgb(255, 86, 86);
 }
 #title5 {
@@ -300,7 +308,7 @@ export default {
   left: 30%;
   color: #000;
 }
-#content5:hover{
+#content5:hover {
   color: rgb(255, 86, 86);
 }
 </style>
