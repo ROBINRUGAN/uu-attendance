@@ -19,7 +19,7 @@
       </select>
       <div class="search">
         学号：
-        <input type="text" id="number" v-model="number" />
+        <input type="text" id="number" v-model="number" @keyup.enter="search"/>
       </div>
 
       <button id="searchbtn" @click="search">搜索</button>

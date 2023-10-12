@@ -4,8 +4,8 @@
       <div id="cover">
         <h1>登录</h1>
         <input type="text" id="id" v-model="no" placeholder="师工号" /><br />
-        <input type="password" id="pwd" v-model="password" placeholder="密码" />
-        <button id="loginbtn" @click="login">登录</button>
+        <input type="password" id="pwd" v-model="password" placeholder="密码" @keyup.enter="login" />
+        <button id="loginbtn" @click="login" >登录</button>
 
         <router-link to="/register">
           <button id="registerbtn">注册</button>
