@@ -2,6 +2,13 @@ import {
     service
 } from "@/utils/request";
 
+export function Semester(){
+    return service.request({
+        method: "get",
+        url: `/courseDetails/dataColumn`,
+    })
+}
+
 export function Login(data) {
     return service.request({
         method: "post",
