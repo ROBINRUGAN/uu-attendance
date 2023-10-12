@@ -2,13 +2,13 @@
   <div id="student">
     <div id="search-box">
       <select id="term" v-model="term" @change="fetchCourses">
-        <option value="0">请选择学期</option>
+        <option value="">请选择学期</option>
         <option value="202201">202201</option>
         <option value="202202">202202</option>
         <option value="202301">202301</option>
       </select>
       <select id="course" v-model="course">
-        <option value="0">请选择课程</option>
+        <option value="">请选择课程</option>
         <option
           v-for="courseItem in courseList"
           :value="courseItem"
@@ -62,13 +62,13 @@ export default {
   name: "student",
   data() {
     return {
-      term: "0",
-      course: "0",
+      term: "",
+      course: "",
       number: "",
       courseList: [],
       studentList: [],
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 5,
     };
   },
   methods: {
@@ -86,7 +86,9 @@ export default {
         pageSize: 10000,
         pageNo: 1,
       }).then((res) => {
-        if (res.code === 1) {
+        if (res.code == 2) {
+          this.$message.error("没有查询到数据");
+        } else if (res.code == 1) {
           if (res.data.rows.length == 0) {
             this.$message.error("没有查询到数据");
           } else {
@@ -94,18 +96,25 @@ export default {
             this.$message.success("查询成功");
           }
         } else {
-          this.$message.error("登录过期，请重新登录");
+          alert("登录过期，请重新登录！");
           this.$router.push("/login");
         }
       });
     },
     fetchCourses() {
       CourseList({ semester: this.term }).then((res) => {
-        if (res.data.length == 0) {
-          this.course = "0";
-          this.$message.error("该学期没有课程");
+        if (res.code == 1) {
+          if (res.data.length == 0) {
+            this.course = "";
+            this.$message.error("该学期没有课程");
+          }
+          this.courseList = res.data;
+        } else if (res.code == 0) {
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
-        this.courseList = res.data;
       });
     },
     download() {
@@ -114,15 +123,20 @@ export default {
         courseName: this.course,
         studentNo: this.number,
       }).then((res) => {
-        const blob = new Blob([res], { type: "application/zip" });
-        // 创建URL以供下载
-        const blobUrl = window.URL.createObjectURL(blob);
-        // 创建一个下载链接
-        const link = document.createElement("a");
-        link.href = blobUrl;
-        link.download = "学生查询结果.xlsx"; // 设置文件名
-        // 触发点击事件以下载文件
-        link.click();
+        if (res.type == "text/xml") {
+          console.log(res);
+          const blob = new Blob([res], { type: "application/zip" });
+          // 创建URL以供下载
+          const blobUrl = window.URL.createObjectURL(blob);
+          // 创建一个下载链接
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          link.download = "课程查询结果.xlsx"; // 设置文件名
+          // 触发点击事件以下载文件
+          link.click();
+        } else {
+          this.$message.error("导出失败，请检查查询结果是否为空");
+        }
       });
     },
     computedWeek(weekData) {
@@ -228,10 +242,10 @@ export default {
           status = "已签到";
           break;
         case 2:
-          status = "请假";
+          status = "已请假";
           break;
         case 3:
-          status = "旷课";
+          status = "已旷课";
           break;
       }
       return status;

@@ -2,13 +2,13 @@
   <div id="overview">
     <div id="search-box">
       <select id="term" v-model="term" @change="fetchCourses">
-        <option value="0">请选择学期</option>
+        <option value="">请选择学期</option>
         <option value="202201">202201</option>
         <option value="202202">202202</option>
         <option value="202301">202301</option>
       </select>
       <select id="course" v-model="course">
-        <option value="0">请选择课程</option>
+        <option value="">请选择课程</option>
         <option
           v-for="courseItem in courseList"
           :value="courseItem"
@@ -18,11 +18,11 @@
         </option>
       </select>
       <select id="week" v-model="week">
-        <option value="0">请选择周数</option>
+        <option value="">请选择周数</option>
         <option v-for="i in 16" :value="i" :key="i">第{{ i }}周</option>
       </select>
       <select id="day" v-model="day">
-        <option value="0">请选择星期</option>
+        <option value="">请选择星期</option>
         <option value="1">星期一</option>
         <option value="2">星期二</option>
         <option value="3">星期三</option>
@@ -32,11 +32,11 @@
         <option value="7">星期日</option>
       </select>
       <select id="section" v-model="from">
-        <option value="0">请选择节数</option>
+        <option value="">请选择节数</option>
         <option v-for="i in 11" :key="i" :value="i">第{{ i }}节</option>
       </select>
       <select id="section" v-model="to">
-        <option value="0">请选择节数</option>
+        <option value="">请选择节数</option>
         <option v-for="i in 11" :key="i" :value="i">第{{ i }}节</option>
       </select>
 
@@ -82,16 +82,16 @@ export default {
   name: "course",
   data() {
     return {
-      term: "0",
-      course: "0",
-      week: "0",
-      day: "0",
-      from: "0",
-      to: "0",
+      term: "",
+      course: "",
+      week: "",
+      day: "",
+      from: "",
+      to: "",
       courseList: [],
       studentList: [],
       currentPage: 1,
-      pageSize: 2,
+      pageSize: 5,
     };
   },
   methods: {
@@ -104,27 +104,35 @@ export default {
         beginSection: this.from,
         endSection: this.to,
       }).then((res) => {
-        const blob = new Blob([res], { type: "application/zip" });
-        // 创建URL以供下载
-        const blobUrl = window.URL.createObjectURL(blob);
-        // 创建一个下载链接
-        const link = document.createElement("a");
-        link.href = blobUrl;
-        link.download = "课程查询结果.xlsx"; // 设置文件名
-        // 触发点击事件以下载文件
-        link.click();
+        if (res.type == "text/xml") {
+          console.log(res);
+          const blob = new Blob([res], { type: "application/zip" });
+          // 创建URL以供下载
+          const blobUrl = window.URL.createObjectURL(blob);
+          // 创建一个下载链接
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          link.download = "课程查询结果.xlsx"; // 设置文件名
+          // 触发点击事件以下载文件
+          link.click();
+        } else {
+          this.$message.error("导出失败，请检查查询结果是否为空");
+        }
       });
     },
     fetchCourses() {
       CourseList({ semester: this.term }).then((res) => {
-        if (res.code === 1) {
+        if (res.code == 1) {
           if (res.data.length == 0) {
-            this.course = "0";
+            this.course = "";
             this.$message.error("该学期没有课程");
-          } else this.courseList = res.data;
-        } else {
+          }
+          this.courseList = res.data;
+        } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
       });
     },
@@ -140,13 +148,11 @@ export default {
         pageSize: 10000,
       };
       CourseSearch(searchData).then((res) => {
-        if (res.code == 1) {
-          if (res.data.rows.length == 0) {
-            this.$message.error("没有查询到数据");
-          } else {
-            this.studentList = res.data.rows;
-            this.$message.success("查询成功");
-          }
+        if (res.code == 2) {
+          this.$message.error("没有查询到数据");
+        } else if (res.code == 1) {
+          this.studentList = res.data.rows;
+          this.$message.success("查询成功");
         } else {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
@@ -358,6 +364,5 @@ export default {
 }
 #page {
   margin: auto;
-  margin-top: -80px;
 }
 </style>

@@ -2,13 +2,13 @@
   <div id="empower">
     <div id="search-box">
       <select id="term" v-model="term" @change="fetchCourses">
-        <option value="0">请选择学期</option>
+        <option value="">请选择学期</option>
         <option value="202201">202201</option>
         <option value="202202">202202</option>
         <option value="202301">202301</option>
       </select>
       <select id="course" v-model="course">
-        <option value="0">请选择课程</option>
+        <option value="">请选择课程</option>
         <option
           v-for="courseItem in courseList"
           :value="courseItem"
@@ -71,8 +71,8 @@ export default {
       currentPage: 1,
       pageSize: 5,
       courseList: [],
-      term: "0",
-      course: "0",
+      term: "",
+      course: "",
     };
   },
   methods: {
@@ -84,11 +84,18 @@ export default {
     },
     fetchCourses() {
       CourseList({ semester: this.term }).then((res) => {
-        if (res.data.length == 0) {
-          this.course = "0";
-          this.$message.error("该学期没有课程");
+        if (res.code == 1) {
+          if (res.data.length == 0) {
+            this.course = "";
+            this.$message.error("该学期没有课程");
+          }
+          this.courseList = res.data;
+        } else if (res.code == 0) {
+          alert("登录过期，请重新登录！");
+          this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
-        this.courseList = res.data;
       });
     },
     search() {
@@ -97,15 +104,17 @@ export default {
         courseName: this.course,
       }).then((res) => {
         if (res.code === 1) {
-          if(res.data.length == 0) {
+          if (res.data.length == 0) {
             this.$message.error("没有查询到数据");
           } else {
             this.studentList = res.data;
             this.$message.success("查询成功");
           }
-        } else {
+        } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
       });
     },
@@ -120,9 +129,11 @@ export default {
             (this.currentPage - 1) * this.pageSize + i
           ].studentType = 2;
           this.$message.success("设置成功");
-        } else {
+        } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
       });
     },
@@ -137,9 +148,11 @@ export default {
             (this.currentPage - 1) * this.pageSize + i
           ].studentType = 1;
           this.$message.success("取消成功");
-        } else {
+        } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
       });
     },

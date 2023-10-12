@@ -56,12 +56,18 @@
       <div id="excuse">理由：{{ excuse }}</div>
       <div id="imgmsg">图片：</div>
       <div id="img">
-        <img
-          src="../assets/home/background.png"
-          alt=""
-          v-for="i in 3"
-          :key="i"
-        />
+        <el-image
+          style="
+             {
+              width: 200px;
+              height: 200px;
+              margin: 10px;
+            }
+          "
+          :src="image"
+          :preview-src-list="srcList"
+        >
+        </el-image>
       </div>
       <div id="footer">
         <button id="passbtn" @click="passFunc">同意</button>
@@ -87,6 +93,8 @@ export default {
       excuse: "",
       id: "",
       i: "",
+      image: "",
+      srcList: [],
     };
   },
   mounted() {
@@ -97,11 +105,12 @@ export default {
       if (res.code === 1) {
         if (res.data.rows.length == 0) {
           this.$message.error("暂无申请信息！");
-        }
-        else this.checkList = res.data.rows;
-      } else {
+        } else this.checkList = res.data.rows;
+      } else if (res.code == 0) {
         alert("登录过期，请重新登录！");
         this.$router.push("/login");
+      } else {
+        this.$message.error(res.msg);
       }
     });
   },
@@ -125,9 +134,13 @@ export default {
           this.time = res.data.beginTime;
           this.course = res.data.courseName;
           this.excuse = res.data.reason;
-        } else {
+          this.image = res.data.image;
+          this.srcList.push(res.data.image);
+        } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
       });
     },
@@ -145,9 +158,11 @@ export default {
             message: "已同意",
             type: "success",
           });
-        } else {
+        } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
       });
     },
@@ -156,7 +171,6 @@ export default {
         id: this.id,
         status: "2",
       }).then((res) => {
-        console.log(res);
         if (res.code == 1) {
           this.checkList[
             (this.currentPage - 1) * this.pageSize + this.i
@@ -166,9 +180,11 @@ export default {
             message: "已拒绝",
             type: "warning",
           });
-        } else {
+        } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
+        } else {
+          this.$message.error(res.msg);
         }
       });
     },
@@ -221,11 +237,6 @@ export default {
   justify-content: center;
   text-align: start;
   margin-left: 8%;
-}
-#img img {
-  width: 150px;
-  height: 150px;
-  margin: 10px;
 }
 #footer {
   display: flex;

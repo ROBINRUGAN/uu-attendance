@@ -36,37 +36,115 @@ export function CourseList(data) {
 }
 
 export function CourseSearch(data) {
+    const {
+        courseName,
+        semester,
+        week,
+        weekday,
+        beginSection,
+        endSection,
+        pageSize,
+        pageNo
+    } = data;
+
+    // 使用条件运算符来确保查询参数不是undefined
+    const queryParams = [
+        `courseName=${courseName}`,
+        `semester=${semester}`,
+        `week=${week}`,
+        `weekday=${weekday}`,
+        `beginSection=${beginSection}`,
+        `endSection=${endSection}`,
+        `pageSize=${pageSize}`,
+        `pageNo=${pageNo}`,
+    ].filter(param => param !== undefined).join('&');
+
+    const url = `/courseAttendances/courseAttendanceList?${queryParams}`;
+
     return service.request({
         method: "get",
-        url: `/courseAttendances/courseAttendanceList?courseName=${data.courseName}&` +
-            `semester=${data.semester}&week=${data.week}&weekday=${data.weekday}&` +
-            `beginSection=${data.beginSection}&endSection=${data.endSection}&pageSize=${data.pageSize}&pageNo=${data.pageNo}`,
-    })
+        url: url,
+    });
 }
+
 export function ExportCourseSearch(data) {
+    const {
+        courseName,
+        semester,
+        week,
+        weekday,
+        beginSection,
+        endSection
+    } = data;
+
+    // 使用条件运算符来确保查询参数不是undefined
+    const queryParams = [
+        `courseName=${courseName}`,
+        `semester=${semester}`,
+        `week=${week}`,
+        `weekday=${weekday}`,
+        `beginSection=${beginSection}`,
+        `endSection=${endSection}`
+    ].filter(param => param !== undefined).join('&');
+
+    const url = `/courseAttendances/export/courseAttendanceList?${queryParams}`;
+
     return service.request({
         method: "get",
-        url: `/courseAttendances/export/courseAttendanceList?courseName=${data.courseName}&` +
-            `semester=${data.semester}&week=${data.week}&weekday=${data.weekday}&` +
-            `beginSection=${data.beginSection}&endSection=${data.endSection}`,
+        url: url,
         responseType: 'blob'
-    })
+    });
 }
+
 export function StudentSearch(data) {
+    const {
+        courseName,
+        semester,
+        studentNo,
+        pageSize,
+        pageNo
+    } = data;
+
+    // 使用条件运算符来确保查询参数不是 undefined
+    const queryParams = [
+        `courseName=${courseName}`,
+        `semester=${semester}`,
+        `studentNo=${studentNo}`,
+        `pageSize=${pageSize}`,
+        `pageNo=${pageNo}`
+    ].filter(param => param !== undefined).join('&');
+
+    const url = `/courseAttendances/studentAttendanceList?${queryParams}`;
+
     return service.request({
         method: "get",
-        url: `/courseAttendances/studentAttendanceList?courseName=${data.courseName}&` +
-            `semester=${data.semester}&studentNo=${data.studentNo}&pageSize=${data.pageSize}&pageNo=${data.pageNo}`,
-    })
+        url: url,
+    });
 }
+
 export function ExportStudentSearch(data) {
+    const {
+        courseName,
+        semester,
+        studentNo
+    } = data;
+
+    // 使用条件运算符来确保查询参数不是 undefined
+    const queryParams = [
+        `courseName=${courseName}`,
+        `semester=${semester}`,
+        `studentNo=${studentNo}`
+    ].filter(param => param !== undefined).join('&');
+
+    const url = `/courseAttendances/export/studentAttendanceList?${queryParams}`;
+
     return service.request({
         method: "get",
-        url: `/courseAttendances/export/studentAttendanceList?courseName=${data.courseName}&` +
-            `semester=${data.semester}&studentNo=${data.studentNo}`,
+        url: url,
         responseType: 'blob'
-    })
+    });
 }
+
 export function AttendanceAppeal(data) {
     return service.request({
         method: "get",
@@ -109,7 +187,7 @@ export function EmpowerList(data) {
         url: `/courseAttendances/student?semester=${data.semester}&courseName=${data.courseName}`,
     })
 }
-export function Assign(data) {  
+export function Assign(data) {
     return service.request({
         method: "post",
         url: `/supervisiontasks`,
