@@ -364,5 +364,6 @@ export default {
 }
 #page {
   margin: auto;
+  margin-top: -80px;
 }
 </style>
