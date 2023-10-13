@@ -19,7 +19,7 @@
       </select>
       <div class="search">
         学号：
-        <input type="text" id="number" v-model="number" @keyup.enter="search"/>
+        <input type="text" id="number" v-model="number" @keyup.enter="search" />
       </div>
 
       <button id="searchbtn" @click="search">搜索</button>
@@ -86,8 +86,8 @@ export default {
         pageSize: 10000,
         pageNo: 1,
       }).then((res) => {
-        if (res.code == 2) {
-          this.$message.error("没有查询到数据");
+        if (res.code == 2 || this.number == "") {
+          this.$message.error("请确保信息填写完整");
         } else if (res.code == 1) {
           if (res.data.rows.length == 0) {
             this.$message.error("没有查询到数据");
