@@ -7,7 +7,7 @@
 
     <el-menu default-active="1" class="menu">
       <router-link to="/home">
-        <el-menu-item index="1">
+        <el-menu-item index="1" >
           <div class="menu-item">
             <img src="../assets/home/home-icon.png" alt="" />
             首页
@@ -176,14 +176,6 @@ li {
   padding: 0px !important;
 }
 
-.menu-item:hover {
-  background: #6fc5f1;
-  cursor: pointer;
-}
-.menu-item:active {
-  background: #65bce7;
-  cursor: pointer;
-}
 .menu-item img {
   height: 30px;
   width: 30px;
@@ -197,24 +189,14 @@ li {
   background-color: #a6e0fe !important;
   font-size: 18px !important;
 }
-.el-menu-item.is-active {
-  color: #fff !important;
-  background-color: #a6e0fe !important;
-}
-.el-menu-item:focus,
 .el-menu-item:hover {
   outline: 0;
-  background-color: #a6e0fe !important;
-}
-.sub-item[data-v-7d622f5c] {
-  background-color: #a6e0fe !important;
-}
-.sub-item[data-v-7d622f5c]:hover {
   background-color: #6fc5f1 !important;
 }
-.sub-item[data-v-7d622f5c]:active {
-  background-color: #65bce7 !important;
+.el-menu-item.is-active {
+  background-color: #6fc5f1 !important;
 }
+
 #logout {
   bottom: 0;
   width: 100%;

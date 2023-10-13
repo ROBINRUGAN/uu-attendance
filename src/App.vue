@@ -23,6 +23,9 @@ export default {
   background-color: #a6e0fe !important;
   font-size: 18px!important;
 }
+.el-submenu__title.is-active {
+  background-color: #6fc5f1 !important;
+}
 .el-menu-item-group__title {
   padding: 0px !important;
 }

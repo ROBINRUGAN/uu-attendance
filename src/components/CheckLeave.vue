@@ -135,6 +135,7 @@ export default {
           this.course = res.data.courseName;
           this.excuse = res.data.reason;
           this.image = res.data.image;
+          this.srcList = [];
           this.srcList.push(res.data.image);
         } else if (res.code == 0) {
           alert("登录过期，请重新登录！");

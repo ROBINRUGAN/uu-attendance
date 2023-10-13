@@ -113,7 +113,10 @@ export default {
         } else if (res.code == 0) {
           alert("登录过期，请重新登录！");
           this.$router.push("/login");
-        } else {
+        } else if(this.semester == ""||this.course == ""){
+          this.$message.error("请选择学期和课程");
+        }
+        else {
           this.$message.error(res.msg);
         }
       });
