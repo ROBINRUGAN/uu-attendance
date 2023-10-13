@@ -7,7 +7,7 @@
       </div>
       <div id="info-sche">
         <div class="title">当前学期：</div>
-        <div class="content">{{semester}}</div>
+        <div class="content">{{ semester }}</div>
       </div>
     </div>
     <div id="hello">{{ name }}老师您好：</div>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { Semester } from '@/api/api';
+import { Semester } from "@/api/api";
 
 export default {
   data() {
@@ -64,19 +64,14 @@ export default {
       semester: "",
     };
   },
-  mounted() {
-    if (localStorage.getItem("name") == null) {
-      alert("登录过期，请重新登录！");
-      this.$router.push("/login");
-    } else {
-      this.name = localStorage.getItem("name");
-    }
-    Semester().then((res) => {
-      if (res.code == 1) {
-        this.semester = res.data.semester;
-      } else if (res.code == 0) {
-        alert("登录过期，请重新登录！");
+  async created() {
+    await Semester().then((res) => {
+      if (res.code == 0 || localStorage.getItem("name") == null) {
+        alert("您还未登录或登录已过期，请重新登录！");
         this.$router.push("/login");
+      } else if (res.code == 1) {
+        this.name = localStorage.getItem("name");
+        this.semester = res.data.semester;
       } else {
         this.$message.error(res.msg);
       }

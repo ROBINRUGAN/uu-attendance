@@ -122,13 +122,13 @@ export default {
 }
 #info {
   height: 95px;
-  width: 255px;
+  width: 260px;
   min-height: 95px;
   justify-content: center;
   align-items: center;
   position: relative;
   background: #66c7fe;
-  box-shadow: 5px 0px 4px 0px #66c7fe;
+  /* box-shadow: 5px 0px 4px 0px #66c7fe; */
 }
 #logo {
   position: absolute;
@@ -163,7 +163,7 @@ export default {
   align-items: center;
   padding-left: 40px;
   box-sizing: border-box;
-  border-radius: 5px;
+
 }
 a {
   text-decoration: none;
@@ -183,12 +183,12 @@ li {
 }
 .el-menu {
   background: transparent !important;
+  border: 0 !important;
 }
 .el-menu-item {
   color: white !important;
   background-color: #a6e0fe !important;
   font-size: 18px !important;
-
 }
 .el-menu-item:hover {
   outline: 0;
@@ -210,6 +210,7 @@ li {
   font-size: 20px;
   font-weight: 550;
   cursor: pointer;
+  border-radius: 5px;
 }
 #logout img {
   height: 35px;

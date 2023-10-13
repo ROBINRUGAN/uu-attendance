@@ -148,7 +148,10 @@ export default {
         pageSize: 10000,
       };
       CourseSearch(searchData).then((res) => {
-        if (res.code == 2) {
+        if(this.semester==0||this.course==0){
+          this.$message.error("请至少选择学期和课程");
+        }
+        else if (res.code == 2) {
           this.$message.error("没有查询到数据");
         } else if (res.code == 1) {
           this.studentList = res.data.rows;
