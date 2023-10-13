@@ -205,7 +205,7 @@ button {
 }
 #getcode {
   width: 30%;
-  top: 73.5%;
+  top: 72.5%;
   left: 56%;
 }
 button:hover {

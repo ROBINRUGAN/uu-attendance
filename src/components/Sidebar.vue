@@ -5,9 +5,9 @@
       <h1 id="title">UU考勤</h1>
     </div>
 
-    <el-menu default-active="1" class="menu">
+    <el-menu :default-active="$route.path" class="menu">
       <router-link to="/home">
-        <el-menu-item index="1" >
+        <el-menu-item index="/home" >
           <div class="menu-item">
             <img src="../assets/home/home-icon.png" alt="" />
             首页
@@ -24,7 +24,7 @@
         </template>
         <el-menu-item-group>
           <router-link to="/course">
-            <el-menu-item index="2-1">
+            <el-menu-item index="/course">
               <div class="menu-item sub-item">
                 <img src="../assets/home/search-menu.png" alt="" />
                 课程查询
@@ -33,7 +33,7 @@
           </router-link>
 
           <router-link to="/student">
-            <el-menu-item index="2-2">
+            <el-menu-item index="/student">
               <div class="menu-item sub-item">
                 <img src="../assets/home/search-icon.png" alt="" />
                 学生查询
@@ -51,8 +51,8 @@
           </div>
         </template>
         <el-menu-item-group>
-          <router-link to="check-attendance">
-            <el-menu-item index="3-1">
+          <router-link to="/check-attendance">
+            <el-menu-item index="/check-attendance">
               <div class="menu-item sub-item">
                 <img src="../assets/home/attendance-icon.png" alt="" />
                 考勤审核
@@ -60,7 +60,7 @@
             </el-menu-item>
           </router-link>
           <router-link to="/check-leave">
-            <el-menu-item index="3-2">
+            <el-menu-item index="/check-leave">
               <div class="menu-item sub-item">
                 <img src="../assets/home/leave-icon.png" alt="" />
                 请假审核
@@ -71,7 +71,7 @@
       </el-submenu>
 
       <router-link to="/empower">
-        <el-menu-item index="4">
+        <el-menu-item index="/empower">
           <div class="menu-item">
             <img src="../assets/home/auth-icon.png" alt="" />
             督导权限指定
@@ -156,7 +156,7 @@ export default {
   font-weight: 550;
 }
 .menu-item {
-  height: 50px;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -188,6 +188,7 @@ li {
   color: white !important;
   background-color: #a6e0fe !important;
   font-size: 18px !important;
+
 }
 .el-menu-item:hover {
   outline: 0;

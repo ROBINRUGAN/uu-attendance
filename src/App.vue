@@ -36,6 +36,7 @@ export default {
 }
 .el-submenu__icon-arrow {
     font-size: 20px!important;
+    margin-top: -11px!important;
 }
 </style>
 
