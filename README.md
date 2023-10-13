@@ -1,6 +1,10 @@
 # UU考勤教师端 - uuAttendance for Teachers
 
 > 本项目是一个跨平台考勤系统，主要提供课前请假、教师审批、考勤申诉、督导点名、定位签到、指定督导等功能，分为学生端/督导端，和教师端。教师端实现考勤查询、教师审批和督导授权，采用VUE进行开发。
+>
+> 学生端/督导端App仓库地址：https://github.com/klxiaoniu/UUAttendance
+>
+> 后端仓库地址：https://github.com/flying-pig-z/uuAttendance
 
 ## 1.UU考勤的流程图
 
