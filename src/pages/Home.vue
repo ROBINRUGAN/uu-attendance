@@ -35,6 +35,19 @@ export default {
     #overview {
         margin-left: -10px;
     }
+    #check-attendance{
+        margin-left: -10px;
+    }
+    #check-leave{
+        margin-left: -10px;
+    }
+    #empower{
+        margin-left: -10px;
+    }
+    #student{
+        margin-left: -10px;
+    }
+    
     #sidebar {
         z-index: 2;
     }

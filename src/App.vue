@@ -18,12 +18,14 @@ export default {
   font-family: "微软雅黑";
 }
 .el-submenu__title {
+  margin: 0px !important;
   padding: 0px !important;
   color: #fff !important;
   background-color: #a6e0fe !important;
   font-size: 18px!important;
 }
 .el-submenu__title.is-active {
+  padding: 0px !important;
   background-color: #6fc5f1 !important;
 }
 .el-menu-item-group__title {

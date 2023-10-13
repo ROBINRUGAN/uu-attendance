@@ -54,7 +54,7 @@
           <router-link to="check-attendance">
             <el-menu-item index="3-1">
               <div class="menu-item sub-item">
-                <img src="../assets/home/search-menu.png" alt="" />
+                <img src="../assets/home/attendance-icon.png" alt="" />
                 考勤审核
               </div>
             </el-menu-item>
@@ -62,7 +62,7 @@
           <router-link to="/check-leave">
             <el-menu-item index="3-2">
               <div class="menu-item sub-item">
-                <img src="../assets/home/search-icon.png" alt="" />
+                <img src="../assets/home/leave-icon.png" alt="" />
                 请假审核
               </div>
             </el-menu-item>
@@ -195,6 +195,7 @@ li {
 }
 .el-menu-item.is-active {
   background-color: #6fc5f1 !important;
+  padding: 0px !important;
 }
 
 #logout {
