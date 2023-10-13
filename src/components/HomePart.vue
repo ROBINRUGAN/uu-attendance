@@ -64,8 +64,8 @@ export default {
       semester: "",
     };
   },
-  async created() {
-    await Semester().then((res) => {
+  beforeMount() {
+    Semester().then((res) => {
       if (res.code == 0 || localStorage.getItem("name") == null) {
         alert("您还未登录或登录已过期，请重新登录！");
         this.$router.push("/login");
