@@ -5,10 +5,9 @@
 > 学生端/督导端App仓库地址：https://github.com/klxiaoniu/UUAttendance
 >
 > 后端仓库地址：https://github.com/flying-pig-z/uuAttendance
-
 ## 1.UU考勤的流程图
 
-[![img](https://user-images.githubusercontent.com/117554874/266471478-7116ec22-125f-4689-8ab5-fb33f2a9fb28.png)](https://user-images.githubusercontent.com/117554874/266471478-7116ec22-125f-4689-8ab5-fb33f2a9fb28.png)
+[![img](https://github.com/ROBINRUGAN/uu-attendance/blob/main/public/%E6%B5%81%E7%A8%8B%E5%9B%BE.png)](https://github.com/ROBINRUGAN/uu-attendance/blob/main/public/%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
 ## 2.教师端技术栈
 
